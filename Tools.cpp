@@ -13,11 +13,11 @@ void Tools::quit() { //quits the game
 
 bool Tools::checkIfRunning() { // checks if the game is still running.
 
-    if(isRunning){
+    if (isRunning) {
 
         return true;
 
-    }else{
+    } else {
         return false;
 
     }
@@ -26,6 +26,6 @@ bool Tools::checkIfRunning() { // checks if the game is still running.
 
 void Tools::clearConsole() { //Drops 30 lines
 
-    cout << string(30,'\n');
+    cout << string(30, '\n');
 
 }

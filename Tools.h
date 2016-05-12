@@ -4,6 +4,7 @@
 
 #ifndef ACTIONPACKEDADVENTUREGAME_TOOLS_H
 #define ACTIONPACKEDADVENTUREGAME_TOOLS_H
+
 #include <iostream>
 #include <fstream>
 #include <vector>

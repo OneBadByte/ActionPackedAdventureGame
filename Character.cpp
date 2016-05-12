@@ -8,17 +8,17 @@ Character::Character() {
 
     string name;
     char c = 'n';
-    while(c == 'n') {
+    while (c == 'n') {
         cout << "what is the name of your character?: ";
         cin >> name;
         setName(name);
         cout << "your name is: " << getName() << endl;
         cout << " y/n: ";
         cin >> c;
-        if(c == 'y'){
+        if (c == 'y') {
             break;
 
-        }else{
+        } else {
 
             continue;
         }
@@ -80,7 +80,7 @@ void Character::setHealth(int h) {
 
 }   //sets the health of the character
 
-void Character::setMoney(int m){
+void Character::setMoney(int m) {
 
     money = m;
 
@@ -98,11 +98,11 @@ void Character::info() {
 
 bool Character::checkIfAlive() {
 
-    if(health > 0){
+    if (health > 0) {
 
         return true;
 
-    }else{
+    } else {
 
         return false;
     }

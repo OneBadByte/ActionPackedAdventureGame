@@ -14,21 +14,20 @@ int main() {
     Screen screen;
 
 
-
-    while(tools.checkIfRunning()) { //Main loop for the game
+    while (tools.checkIfRunning()) { //Main loop for the game
 
         screen.changeBackground(100, 100, 100, 255); // changes the background color and renders it.
 
 
 
 
-            cout << "Welcome!" << endl;
-            cout << endl;
-            Character character;
-            tools.clearConsole();
-            character.info();
+        cout << "Welcome!" << endl;
+        cout << endl;
+        Character character;
+        tools.clearConsole();
+        character.info();
 
-            tools.quit();
+        tools.quit();
 
     }
 

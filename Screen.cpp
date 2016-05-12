@@ -7,43 +7,33 @@
 
 using namespace std;
 
- Screen::Screen() {
+Screen::Screen() {
 
 
-
-
-    if(SDL_Init(SDL_INIT_EVERYTHING) < 0){
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 
         cout << "SDL init failed" << endl;
 
     }
-     cout << "SDL succeeded" << endl;
-     createScreen();
-     createRenderer();
+    cout << "SDL succeeded" << endl;
+    createScreen();
+    createRenderer();
 
 
-
-
-
-
-
-
- } //initializes SDL_Init and then creates a screen and renderer
+} //initializes SDL_Init and then creates a screen and renderer
 
 
 void Screen::createScreen() {
 
-    window = SDL_CreateWindow("Adventure", SDL_WINDOWPOS_UNDEFINED , SDL_WINDOWPOS_UNDEFINED, 1000, 1000, SDL_WINDOW_RESIZABLE);
-
-
-
+    window = SDL_CreateWindow("Adventure", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1000, 1000,
+                              SDL_WINDOW_RESIZABLE);
 
 
 } // Opens window to 1000px width, 1000px height called window
 
-void Screen::createRenderer(){
+void Screen::createRenderer() {
 
-    renderer = SDL_CreateRenderer(window,-1,0);
+    renderer = SDL_CreateRenderer(window, -1, 0);
 
 }  //Creates a renderer using the window
 
@@ -65,7 +55,6 @@ void Screen::changeBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 } //changes the background color using rgba,clears, and renders it.
 
 void Screen::quitOnExitButtonPress() {
-
 
 
 }
