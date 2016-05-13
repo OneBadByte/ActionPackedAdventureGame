@@ -4,6 +4,7 @@
 
 #ifndef ACTIONPACKEDADVENTUREGAME_ENEMY_H
 #define ACTIONPACKEDADVENTUREGAME_ENEMY_H
+
 #include "Tools.h"
 
 using namespace std;
@@ -53,25 +54,23 @@ protected:
 
 };
 
-class Spider : public Enemy{
-
+class Spider : public Enemy {
 
 
 public:
     Spider(string name, int health, int attack, int defence, int money);
 
     ~Spider();
+
 private:
 
 
 protected:
 
 
-
 };
 
-class Vampire : public Enemy{
-
+class Vampire : public Enemy {
 
 
 public:
@@ -83,7 +82,7 @@ protected:
 
 };
 
-class Troll : public Enemy{
+class Troll : public Enemy {
 
 public:
     Troll(string name, int health, int attack, int defence, int money);
@@ -94,7 +93,7 @@ protected:
 
 };
 
-class Skeleton : public Enemy{
+class Skeleton : public Enemy {
 
 public:
     Skeleton(string name, int health, int attack, int defence, int money);
@@ -105,7 +104,7 @@ protected:
 
 };
 
-class Dragon : public Enemy{
+class Dragon : public Enemy {
 
 public:
     Dragon(string name, int health, int attack, int defence, int money);
@@ -115,8 +114,6 @@ private:
 protected:
 
 };
-
-
 
 
 #endif //ACTIONPACKEDADVENTUREGAME_ENEMY_H

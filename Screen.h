@@ -24,6 +24,9 @@ public:
 
     void createScreen(); //creates screen with SDL_Window* window and controls the Width and height
     void createRenderer(); //creates a renderer
+
+
+
     void quitOnExitButtonPress();
 
     void quitSDL(); //Destroys everything

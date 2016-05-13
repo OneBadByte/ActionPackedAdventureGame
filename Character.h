@@ -55,7 +55,6 @@ private:
     int defence = 8;
 
 
-
 };
 
 

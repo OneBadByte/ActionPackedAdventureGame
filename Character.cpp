@@ -15,10 +15,10 @@ void Character::characterCreation() {
     string name;
     char c = 'n';
 
-        while (c == 'n') {
+    while (c == 'n') {
 
-            cout << "what is the name of your character?: ";
-            while (tools.checkIfRunning()) {
+        cout << "what is the name of your character?: ";
+        while (tools.checkIfRunning()) {
             cin >> name;
             setName(name);
             cout << "your name is: " << getName() << endl;
