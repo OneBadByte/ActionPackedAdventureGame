@@ -3,7 +3,7 @@ project(ActionPackedAdventureGame)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp Tools.cpp Tools.h Character.cpp Character.h Screen.cpp Screen.h)
+set(SOURCE_FILES main.cpp Tools.cpp Tools.h Character.cpp Character.h Screen.cpp Screen.h Enemy.cpp Enemy.h)
 add_executable(ActionPackedAdventureGame ${SOURCE_FILES})
 
 

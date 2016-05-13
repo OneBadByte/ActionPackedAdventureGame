@@ -8,6 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include "Enemy.h"
 
 using namespace std;
 

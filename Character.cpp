@@ -6,27 +6,47 @@
 
 Character::Character() {
 
+
+}
+
+//Character creation dialog
+void Character::characterCreation() {
+    Tools tools;
     string name;
     char c = 'n';
-    while (c == 'n') {
-        cout << "what is the name of your character?: ";
-        cin >> name;
-        setName(name);
-        cout << "your name is: " << getName() << endl;
-        cout << " y/n: ";
-        cin >> c;
-        if (c == 'y') {
-            break;
 
-        } else {
+        while (c == 'n') {
 
-            continue;
+            cout << "what is the name of your character?: ";
+            while (tools.checkIfRunning()) {
+            cin >> name;
+            setName(name);
+            cout << "your name is: " << getName() << endl;
+            cout << " y/n: ";
+            cin >> c;
+            if (c == 'y') {
+                break;
+
+            } else {
+
+                continue;
+            }
+
         }
-
     }
 
 
 }
+
+
+void Character::info() {
+    cout << name << endl;
+    cout << "Health: " << health << endl;
+    cout << "Attack power: " << attack << endl;
+    cout << "Defence power: " << defence << endl;
+    cout << "money: " << money << endl;
+
+} //prints to the console the health, attack, defence, money values.
 
 
 // getters
@@ -86,15 +106,6 @@ void Character::setMoney(int m) {
 
 }   //sets money value
 
-
-void Character::info() {
-    cout << name << endl;
-    cout << "Health: " << health << endl;
-    cout << "Attack power: " << attack << endl;
-    cout << "Defence power: " << defence << endl;
-    cout << "money: " << money << endl;
-
-} //prints to the console the health, attack, defence, money values.
 
 bool Character::checkIfAlive() {
 

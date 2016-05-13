@@ -7,26 +7,34 @@
 
 using namespace std;
 
+
+// Objects
+Tools tools;
+
+Character character;
+
+//Threads
+
+
+
 int main() {
 
-    // Objects
-    Tools tools;
     Screen screen;
-
-
     while (tools.checkIfRunning()) { //Main loop for the game
 
+
+
+
+        Spider spider("squishy", 100, 200, 300 ,1000);
+        spider.info();
+
+        /*
         screen.changeBackground(100, 100, 100, 255); // changes the background color and renders it.
-
-
-
-
-        cout << "Welcome!" << endl;
-        cout << endl;
-        Character character;
+        character.characterCreation();
         tools.clearConsole();
-        character.info();
 
+        character.info();
+        */
         tools.quit();
 
     }

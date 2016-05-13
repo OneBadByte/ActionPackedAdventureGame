@@ -13,7 +13,7 @@ void Tools::quit() { //quits the game
 
 bool Tools::checkIfRunning() { // checks if the game is still running.
 
-    if (isRunning) {
+    if (isRunning == true) {
 
         return true;
 

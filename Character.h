@@ -41,6 +41,7 @@ public:
 
     void setMoney(int m);
 
+    void characterCreation();
 
     ~Character();
 
@@ -52,6 +53,7 @@ private:
     int health = 100;
     int attack = 10;
     int defence = 8;
+
 
 
 };
