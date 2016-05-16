@@ -18,6 +18,9 @@ public:
     SDL_Texture *texture;
     SDL_Surface *surface;
 
+    const int SCREENHEIGHT = 1000;
+    const int SCREENWIDTH = 1000;
+
 
     Screen();   //uses createScreen, createRenderer
 

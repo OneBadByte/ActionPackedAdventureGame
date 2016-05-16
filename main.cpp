@@ -4,6 +4,7 @@
 #include "Character.h"
 #include "Screen.h"
 #include "Items.h"
+#include "Control.h"
 
 
 using namespace std;
@@ -21,44 +22,16 @@ Character character;
 int main() {
 
     Screen screen;
+    Control control;
+
     while (tools.checkIfRunning()) { //Main loop for the game
 
-
-        /*
-        screen.changeBackground(100, 100, 100, 255); // changes the background color and renders it.
-        character.characterCreation();
-        tools.clearConsole();
-
-        character.info();
-        */
-
-        SDL_Rect stuff;
-        stuff.x = 0;
-        stuff.y = 0;
-        stuff.h = 1000;
-        stuff.w = 1000;
-
-        SDL_Rect character;
-        character.x = 0;
-        character.y = 650;
-        character.h = 100;
-        character.w = 100;
-
-        screen.loadAndRenderBmp("Welcome.bmp");
+        screen.loadAndRenderBmp("Land1.bmp");
+        screen.loadAndRenderBmp("BrickGround.bmp", control.ground);
+        screen.loadAndRenderBmp("Character.bmp", control.character);
         SDL_RenderPresent(screen.renderer);
-        SDL_Delay(500);
-
-
-
-        for(int i = 0; i < 100; i++){
-
-            //SDL_RenderClear(screen.renderer);
-            screen.loadAndRenderBmp("Land1.bmp");
-            character.x = i*12;
-
-
-        }
-
+        SDL_Delay(5000);
+        SDL_RenderClear(screen.renderer);
 
 
         tools.quit();

@@ -26,7 +26,7 @@ Screen::Screen() {
 
 void Screen::createScreen() {
 
-    window = SDL_CreateWindow("Adventure", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1000, 1000,
+    window = SDL_CreateWindow("Adventure", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREENHEIGHT , SCREENWIDTH,
                               SDL_WINDOW_RESIZABLE);
 
 
