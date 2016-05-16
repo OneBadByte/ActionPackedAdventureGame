@@ -32,14 +32,32 @@ int main() {
         character.info();
         */
 
-        Spider spider1("fuzzy", 21, 22,34,45);
+        SDL_Rect stuff;
+        stuff.x = 0;
+        stuff.y = 0;
+        stuff.h = 1000;
+        stuff.w = 1000;
 
-        spider1.info();
+        SDL_Rect character;
+        character.x = 0;
+        character.y = 650;
+        character.h = 100;
+        character.w = 100;
 
-        FlamingIronSword flamingIronSword("superSword", 12, 23,12);
-        flamingIronSword.info();
+        screen.loadAndRenderBmp("Welcome.bmp");
+        SDL_RenderPresent(screen.renderer);
+        SDL_Delay(500);
 
 
+
+        for(int i = 0; i < 100; i++){
+
+            //SDL_RenderClear(screen.renderer);
+            screen.loadAndRenderBmp("Land1.bmp");
+            character.x = i*12;
+
+
+        }
 
 
 

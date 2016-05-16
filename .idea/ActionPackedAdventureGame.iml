@@ -5,11 +5,12 @@
       <sourceFolder url="file://$MODULE_DIR$/Character.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Items.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Enemy.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Enemy.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Welcome.bmp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Items.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Screen.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Enemy.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Tools.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Screen.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Tools.cpp" isTestSource="false" />

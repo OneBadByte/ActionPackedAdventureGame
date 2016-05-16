@@ -58,6 +58,9 @@ void Items::setMoney(int m) {
 }   //sets money valueFlamingIronSword::FlamingIronSword(string name, int attack, int defence, int money){
 
 
+
+
+//constructors
 WoodSword::WoodSword (string name, int attack, int defence, int money) {
 
     setName(name);

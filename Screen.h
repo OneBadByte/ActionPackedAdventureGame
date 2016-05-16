@@ -15,11 +15,14 @@ class Screen {
 public:
     SDL_Window *window; // SDL value for the window
     SDL_Renderer *renderer; //SDL renderer
-
+    SDL_Texture *texture;
+    SDL_Surface *surface;
 
 
     Screen();   //uses createScreen, createRenderer
 
+    void loadAndRenderBmp(const char *imagePath);
+    void loadAndRenderBmp(const char *imagePath, SDL_Rect rect);
     void changeBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
     void createScreen(); //creates screen with SDL_Window* window and controls the Width and height

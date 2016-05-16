@@ -16,6 +16,7 @@ Screen::Screen() {
 
     }
     cout << "SDL succeeded" << endl;
+
     createScreen();
     createRenderer();
 
@@ -40,7 +41,7 @@ void Screen::createRenderer() {
 
 void Screen::quitSDL() {
 
-
+    SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
 
@@ -65,4 +66,20 @@ Screen::~Screen() {
 }
 
 
+void Screen::loadAndRenderBmp(const char *imagePath) {
 
+    surface = SDL_LoadBMP(imagePath);
+    texture = SDL_CreateTextureFromSurface(renderer,surface);
+    SDL_FreeSurface(surface);
+    SDL_RenderCopy(renderer,texture,NULL,NULL);
+
+}
+
+void Screen::loadAndRenderBmp(const char *imagePath, SDL_Rect rect) {
+
+    surface = SDL_LoadBMP(imagePath);
+    texture = SDL_CreateTextureFromSurface(renderer,surface);
+    SDL_FreeSurface(surface);
+    SDL_RenderCopy(renderer,texture,NULL, &rect);
+
+}

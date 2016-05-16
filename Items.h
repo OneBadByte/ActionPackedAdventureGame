@@ -51,20 +51,16 @@ protected:
 class WoodSword : public Items {
 
 
-
 public:
-    WoodSword  (string name, int attack, int defence, int money);
+    WoodSword(string name, int attack, int defence, int money);
 
 
 private:
 
 
-
-
 };
 
-class IronSword : public Items{
-
+class IronSword : public Items {
 
 
 public:
@@ -74,12 +70,9 @@ public:
 private:
 
 
-
-
 };
 
-class FlamingIronSword : public Items{
-
+class FlamingIronSword : public Items {
 
 
 public:
@@ -87,8 +80,6 @@ public:
 
 
 private:
-
-
 
 
 };
