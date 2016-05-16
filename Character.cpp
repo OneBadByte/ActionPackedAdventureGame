@@ -2,9 +2,22 @@
 // Created by blackdartq on 5/10/16.
 //
 
+#include <SDL_thread.h>
+#include <SDL_events.h>
 #include "Character.h"
 
 Character::Character() {
+
+    characterRect.y = 800;
+    characterRect.x = 0;
+    characterRect.h = 100;
+    characterRect.w = 100;
+
+
+
+    //SDL_Thread *characterThread;
+    //characterThread = SDL_CreateThread(staticCharacterThread,"character Thread", (void *) NULL);
+
 
 
 }
@@ -107,6 +120,8 @@ void Character::setMoney(int m) {
 }   //sets money value
 
 
+
+
 bool Character::checkIfAlive() {
 
     if (health > 0) {
@@ -121,8 +136,88 @@ bool Character::checkIfAlive() {
 } //checks if health is > 0
 
 
+
+
+
+
+
+
+
+
+
+
+
 Character::~Character() {
 
+}
+
+
+void Character::moveCharacterLeft() {
+
+    for (int i = 0; i <= 10; i++) {
+        jumpRight = false;
+        characterRect.x = characterRect.x - 2;
+        loadAndRenderBmp("Character.bmp", characterRect);
+        SDL_RenderPresent(renderer);
+
+
+    }
+
+}
+
+void Character::moveCharacterRight() {
+
+    for (int i = 0; i <= 10; i++) {
+        characterRect.x = characterRect.x + 2;
+        jumpRight = true;
+        loadAndRenderBmp("Character.bmp", characterRect);
+        SDL_RenderPresent(renderer);
+
+    }
+
+}
+
+void Character::moveCharacterJump() {
+
+    if (jumpRight) {
+        for (int i = 0; i <= 4; i++) {
+            characterRect.y = characterRect.y - 10 * i;
+            moveCharacterRight();
+            //loadAndRenderBmp("Character.bmp", characterRect);
+
+            SDL_RenderPresent(renderer);
+
+            SDL_Delay(20);
+        }
+
+        for (int i = 0; i <= 4; i++) {
+            characterRect.y = characterRect.y + 10 * i;
+            moveCharacterRight();
+            loadAndRenderBmp("Character.bmp", characterRect);
+            SDL_RenderPresent(renderer);
+            SDL_Delay(20);
+        }
+
+    } else {
+
+        for (int i = 0; i <= 4; i++) {
+            characterRect.y = characterRect.y - 10 * i;
+            moveCharacterLeft();
+            loadAndRenderBmp("Character.bmp", characterRect);
+            SDL_RenderPresent(renderer);
+
+            SDL_Delay(20);
+        }
+
+        for (int i = 0; i <= 4; i++) {
+            characterRect.y = characterRect.y + 10 * i;
+            moveCharacterLeft();
+            loadAndRenderBmp("Character.bmp", characterRect);
+            SDL_RenderPresent(renderer);
+            SDL_Delay(20);
+        }
+
+    }
 }
 
 

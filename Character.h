@@ -5,19 +5,21 @@
 #ifndef ACTIONPACKEDADVENTUREGAME_CHARACTER_H
 #define ACTIONPACKEDADVENTUREGAME_CHARACTER_H
 
+#include <SDL_rect.h>
 #include "Tools.h"
-
+#include "Screen.h"
 using namespace std;
 
-class Character {
+class Character : Screen {
 
 public:
-    Character(); //runs code for the character creation
-
-
+    Character(); //Sets character rectangle
+    SDL_Rect characterRect;
+    bool jumpRight = true;
     void info();
 
     //getters
+
     int getAttack();
 
     int getDefence();
@@ -29,6 +31,7 @@ public:
     bool checkIfAlive();
 
     string getName();
+
 
     //setters
     void setName(string characterName);
@@ -44,6 +47,11 @@ public:
     void characterCreation();
 
     ~Character();
+
+    void moveCharacterLeft();
+    void moveCharacterRight();
+    void moveCharacterJump();
+
 
 
 private:

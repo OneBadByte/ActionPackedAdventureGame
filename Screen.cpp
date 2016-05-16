@@ -10,6 +10,11 @@ using namespace std;
 Screen::Screen() {
 
 
+
+} //initializes SDL_Init and then creates a screen and renderer
+
+
+void Screen::createScreen() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 
         cout << "SDL init failed" << endl;
@@ -17,16 +22,7 @@ Screen::Screen() {
     }
     cout << "SDL succeeded" << endl;
 
-    createScreen();
-    createRenderer();
-
-
-} //initializes SDL_Init and then creates a screen and renderer
-
-
-void Screen::createScreen() {
-
-    window = SDL_CreateWindow("Adventure", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREENHEIGHT , SCREENWIDTH,
+    window = SDL_CreateWindow("Adventure", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREENHEIGHT, SCREENWIDTH,
                               SDL_WINDOW_RESIZABLE);
 
 
@@ -66,20 +62,39 @@ Screen::~Screen() {
 }
 
 
+
+
 void Screen::loadAndRenderBmp(const char *imagePath) {
 
+    SDL_Texture *texture1;
     surface = SDL_LoadBMP(imagePath);
-    texture = SDL_CreateTextureFromSurface(renderer,surface);
+    texture1 = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
-    SDL_RenderCopy(renderer,texture,NULL,NULL);
+    SDL_RenderCopy(renderer, texture1, NULL, NULL);
+    SDL_DestroyTexture(texture1);
 
 }
 
+
 void Screen::loadAndRenderBmp(const char *imagePath, SDL_Rect rect) {
 
+    SDL_Texture *texture1;
     surface = SDL_LoadBMP(imagePath);
-    texture = SDL_CreateTextureFromSurface(renderer,surface);
+    texture1 = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
-    SDL_RenderCopy(renderer,texture,NULL, &rect);
+    SDL_RenderCopy(renderer, texture1, NULL, &rect);
+    SDL_DestroyTexture(texture1);
+
+
+}
+
+void Screen::changeGroundWithBmp(const char *image) {
+
+    groundRect.x = 0;
+    groundRect.y = 900;
+    groundRect.w = 1000;
+    groundRect.h = 100;
+
+    this->loadAndRenderBmp(image, groundRect);
 
 }

@@ -17,6 +17,7 @@ public:
     SDL_Renderer *renderer; //SDL renderer
     SDL_Texture *texture;
     SDL_Surface *surface;
+    SDL_Rect groundRect;
 
     const int SCREENHEIGHT = 1000;
     const int SCREENWIDTH = 1000;
@@ -27,6 +28,7 @@ public:
     void loadAndRenderBmp(const char *imagePath);
     void loadAndRenderBmp(const char *imagePath, SDL_Rect rect);
     void changeBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+    void changeGroundWithBmp(const char *image);
 
     void createScreen(); //creates screen with SDL_Window* window and controls the Width and height
     void createRenderer(); //creates a renderer
