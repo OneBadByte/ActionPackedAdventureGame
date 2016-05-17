@@ -15,8 +15,7 @@ class Screen {
 public:
     SDL_Window *window; // SDL value for the window
     SDL_Renderer *renderer; //SDL renderer
-    SDL_Texture *texture;
-    SDL_Surface *surface;
+    SDL_Surface *surface = NULL;
     SDL_Rect groundRect;
 
     const int SCREENHEIGHT = 1000;
@@ -27,6 +26,8 @@ public:
 
     void loadAndRenderBmp(const char *imagePath);
     void loadAndRenderBmp(const char *imagePath, SDL_Rect rect);
+    void loadAndRenderBmp(const char *imagePath, SDL_Rect textureRect, SDL_Rect rect);
+
     void changeBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     void changeGroundWithBmp(const char *image);
 
@@ -43,6 +44,7 @@ public:
     ~Screen();
 
 private:
+
 
 
 };

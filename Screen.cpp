@@ -9,6 +9,10 @@ using namespace std;
 
 Screen::Screen() {
 
+    groundRect.x = 0;
+    groundRect.y = 900;
+    groundRect.w = 1000;
+    groundRect.h = 100;
 
 
 } //initializes SDL_Init and then creates a screen and renderer
@@ -37,8 +41,8 @@ void Screen::createRenderer() {
 
 void Screen::quitSDL() {
 
-    SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
     SDL_Quit();
 
 } //Destroys the renderer and the quits SDL
@@ -62,11 +66,9 @@ Screen::~Screen() {
 }
 
 
-
-
 void Screen::loadAndRenderBmp(const char *imagePath) {
 
-    SDL_Texture *texture1;
+    SDL_Texture *texture1 = NULL;
     surface = SDL_LoadBMP(imagePath);
     texture1 = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
@@ -78,7 +80,7 @@ void Screen::loadAndRenderBmp(const char *imagePath) {
 
 void Screen::loadAndRenderBmp(const char *imagePath, SDL_Rect rect) {
 
-    SDL_Texture *texture1;
+    SDL_Texture *texture1 = NULL;
     surface = SDL_LoadBMP(imagePath);
     texture1 = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
@@ -88,12 +90,20 @@ void Screen::loadAndRenderBmp(const char *imagePath, SDL_Rect rect) {
 
 }
 
+void Screen::loadAndRenderBmp(const char *imagePath, SDL_Rect textureRect, SDL_Rect rect) {
+
+    SDL_Texture *texture1 = NULL;
+    surface = SDL_LoadBMP(imagePath);
+    texture1 = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    SDL_RenderCopy(renderer, texture1, &textureRect, &rect);
+    SDL_DestroyTexture(texture1);
+
+
+}
+
 void Screen::changeGroundWithBmp(const char *image) {
 
-    groundRect.x = 0;
-    groundRect.y = 900;
-    groundRect.w = 1000;
-    groundRect.h = 100;
 
     this->loadAndRenderBmp(image, groundRect);
 
