@@ -12,50 +12,85 @@ using namespace std;
 // Objects
 Tools tools;
 Screen screen;
-Character character;
+Character character(0, 800);
 Entity entity;
+SDL_Event event;
 
-int threadReturnValue;
+void moveScreen(){
+
+    if(character.entityRect.x >= 600 ){
+        screen.moveScreenLeft();
+
+    }else if(character.entityRect.x == 0 && screen.backgroundShownRect.x >= 0){
 
 
+    }else if(character.entityRect.x == 0){
+        screen.moveScreenRight();
+
+    }
+
+
+
+}
+
+//uses a thread to move the character by getting the keyboard input
 void moveCharacter(){
-    SDL_Event event;
-    //cout << "in do while loop" << endl;
-        while (SDL_PollEvent(&event)) {
+        const Uint8 *state = SDL_GetKeyboardState(NULL);
+        if (SDL_PollEvent(&event)) {
             if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.scancode) {
                     case SDL_SCANCODE_D:
-                        cout << "right" << character.entityRect.x << endl;
-                        character.moveEntityRight(character.image, character.entityRect);
+                        //cout << "right" << character.entityRect.x << endl;
+                        if(character.entityRect.x >= 600 ){
+                            //screen.moveScreenLeft();
 
-                        continue;
+                        }else {
+                            character.moveEntityRight(character.characterStandingRight, character.entityRect,
+                                                      character.facingRight, character.attackingRight);
+                        }
+
+                        moveScreen();
+                        break;
 
                     case SDL_SCANCODE_A:
-                        cout << "Left" << character.entityRect.x << endl;
-                        character.moveEntityLeft(character.image, character.entityRect);
+                        //cout << "Left" << character.entityRect.x << endl;
 
-                        continue;
+                        if(character.entityRect.x == 0 && screen.backgroundShownRect.x >= 0){
+
+
+                        }else if(character.entityRect.x == 0){
+                            //screen.moveScreenRight();
+
+                        }else {
+                            character.moveEntityLeft("Img/CharacterStandingLeft.bmp", character.entityRect,
+                                                     character.facingRight, character.attackingRight);
+                        }
+                        moveScreen();
+                        break;
 
                     case SDL_SCANCODE_W:
-                        cout << "jump" << character.entityRect.x << endl;
-                        character.moveEntityJump(character.image, character.entityRect);
+                        //cout << "jump" << character.entityRect.x << endl;
+                        character.moveEntityJump(character.characterStandingRight, character.entityRect, character.facingRight, character.attackingRight);
 
-                        continue;
+                        break;
 
                     case SDL_SCANCODE_SPACE:
-                        cout << "Attacking" << endl;
-                        character.Attack("Shadow.bmp", character.entityRect);
-                        continue;
+                        //cout << "Attacking" << endl;
+                        character.shadowBlast("Img/Character.bmp", character.entityRect, character.facingRight, character.attackingRight);
+                        break;
 
                     case SDL_SCANCODE_ESCAPE:
                         cout << "Pressed escape" << endl;
-
                         tools.quit();
+                        break;
                 }
-                break;
+
+
+
+              //  break;
 
             }
-            break;
+            //break;
 
         }
 
@@ -64,52 +99,75 @@ void moveCharacter(){
 
 
 //Threads
-static int staticCharacterThread(void *ptr) {
+
+// calls moveCharacter()
+static int characterThread(void *ptr) {
 
     moveCharacter();
+
+    return 0;
+}
+
+static int enemyThread(void *ptr){
+
+
+
     return 0;
 }
 
 
 int main() {
 
-    Screen screen;
-
+    //Creates screen
     screen.createScreen();
+
+    //Creates the renderer
     screen.createRenderer();
 
-    screen.loadAndRenderBmp("Loading1.bmp");
+    //renders the loading screen
+    //and delays SDL to give time for the window to open
+    //screen.loadAndRenderBmp("Img/Loading1.bmp");
+    SDL_Delay(300);
+    screen.changeBackground("Img/Loading1.bmp");
     SDL_RenderPresent(screen.renderer);
     SDL_Delay(1000);
 
-
-    Spider spider("spongy",12,12,12,12);
+    //Creates the thread and delays SDL to load the thread
     SDL_Thread *thread;
+    SDL_Delay(3000);
+    Spider spider(500, 800);
+
 
     while (tools.checkIfRunning()) { //Main loop for the game
 
-        SDL_Rect stuff;
-        stuff.x = 100;
-        stuff.y = 100;
-        stuff.h = 100;
-        stuff.w = 100;
-
-
-        thread = SDL_CreateThread(staticCharacterThread,"stuff", (void*)NULL);
-        screen.loadAndRenderBmp("Shadow.bmp", character.attackRect);
-        screen.loadAndRenderBmp("Land1.bmp");
-        screen.changeGroundWithBmp("BrickGround.bmp");
-        screen.loadAndRenderBmp(character.image, character.entityRect);
-        SDL_RenderPresent(screen.renderer);
-
+        //Clears the Renderer
         SDL_RenderClear(screen.renderer);
 
+
+        //loads background image and the ground
+        screen.changeBackground("Img/Land1.bmp");
+        screen.changeGroundWithBmp("Img/BrickGround.bmp");
+
+
+        //checks to see what direction the character is facing and then loads the character image
+        screen.loadAndRenderBmp(entity.checkIfCharacterIsFacingRight(character.facingRight, character.attackingRight), character.entityRect);
+        screen.loadAndRenderBmp("Img/Shadow.bmp", spider.entityRect);
+
+        //loads characters attack rectangle
+        screen.loadAndRenderBmp("Img/Shadow.bmp", character.attackRect);
+
+
+        //renders everything above
+        SDL_RenderPresent(screen.renderer);
+
+        // assigns thread to characterThread
+        thread = SDL_CreateThread(characterThread,"character Thread", (void*)NULL);
 
 
 
     }
+
+    // destroys character thread.
     SDL_DetachThread(thread);
-    screen.quitSDL();
-    tools.quit();
     return 0;
 }

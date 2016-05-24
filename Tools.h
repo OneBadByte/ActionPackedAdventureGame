@@ -15,11 +15,15 @@ using namespace std;
 class Tools {
 
 public:
-    void quit(); //quits the main loop
-    bool checkIfRunning();  // checks if isRunning is true
-    void clearConsole();    // drops 30 strings in the console to make space
+    //quits the main loop
+    void quit();
+    // checks if isRunning is true
+    bool checkIfRunning();
+    // drops 30 strings in the console to make space
+    void clearConsole();
 
 private:
+    //Used to check if the main loop is running
     bool isRunning = true;
 
 

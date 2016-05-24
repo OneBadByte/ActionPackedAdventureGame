@@ -13,32 +13,51 @@
 class Screen {
 
 public:
-    SDL_Window *window; // SDL value for the window
-    SDL_Renderer *renderer; //SDL renderer
+    // SDL value for the window
+    SDL_Window *window;
+    //SDL renderer
+    SDL_Renderer *renderer;
+    //surface used in the loadAndRenderBmp()
     SDL_Surface *surface = NULL;
+    //surface used in the changeGroundWithBmp()
     SDL_Rect groundRect;
+    SDL_Rect groundShownRect;
 
+    //background rectangle that holds the screen width and height
+    SDL_Rect backgroundRect;
+    SDL_Rect backgroundShownRect;
+
+    //used to set the screens width and height
+    const int SCREENWIDTH = 1200;
     const int SCREENHEIGHT = 1000;
-    const int SCREENWIDTH = 1000;
 
+    //sets the W,H,X,Y for the ground rectangle
+    Screen();
 
-    Screen();   //uses createScreen, createRenderer
-
+    //loads a bmp to a rectangle
     void loadAndRenderBmp(const char *imagePath);
     void loadAndRenderBmp(const char *imagePath, SDL_Rect rect);
     void loadAndRenderBmp(const char *imagePath, SDL_Rect textureRect, SDL_Rect rect);
 
+    //changes the background color
     void changeBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+    void changeBackground(const char *imagePath);
+
+    //changes the grounds bmp
     void changeGroundWithBmp(const char *image);
 
-    void createScreen(); //creates screen with SDL_Window* window and controls the Width and height
-    void createRenderer(); //creates a renderer
+    //creates screen with SDL_Window* window and controls the Width and height
+    void createScreen();
 
+    //creates a renderer
+    void createRenderer();
 
+    //move the screen
+    void moveScreenLeft();
+    void moveScreenRight();
 
-    void quitOnExitButtonPress();
-
-    void quitSDL(); //Destroys everything
+    //Destroys everything and exits the main loop
+    void quitSDL();
 
 
     ~Screen();

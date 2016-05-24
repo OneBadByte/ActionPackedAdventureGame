@@ -13,13 +13,26 @@ using namespace std;
 class Entity : Screen {
 
 public:
-    Entity(); //Sets character rectangleconst char* image,
+
+    //gives every entity a rectangle
     SDL_Rect entityRect;
+
+    //used for attack rectangle of the entity
     SDL_Rect attackRect;
-    bool jumpRight = true;
-    void info();
+
+    //used for checking the direction of the entity
+    bool facingRight;
+
+    //used to check which direction the entity is attacking
+    bool attackingRight;
+
+    //prints to the console all the entitys info
+    void entityInfo();
+
 
     //getters
+
+    string getName();
 
     int getAttack();
 
@@ -31,8 +44,10 @@ public:
 
     bool checkIfAlive();
 
-    string getName();
+
+    //Used to get entitys x,y axis info
     int getEntityRectX(SDL_Rect rect);
+
     int getEntityRectY(SDL_Rect rect);
 
 
@@ -47,16 +62,15 @@ public:
 
     void setMoney(int m);
 
+
     void characterCreation();
 
-    ~Entity();
 
-    void moveEntityLeft(const char* image, SDL_Rect &rect);
-    void moveEntityRight(const char* image, SDL_Rect &rect);
-    void moveEntityJump(const char* image, SDL_Rect &rect);
-    void Attack(const char* image, SDL_Rect &rect);
-
-
+    void moveEntityLeft(const char* image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+    void moveEntityRight(const char* image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+    void moveEntityJump(const char* image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+    void shadowBlast(const char* image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+    const char* checkIfCharacterIsFacingRight(bool facingRight, bool attackingRight);
 
 
 private:
@@ -68,15 +82,16 @@ private:
     int defence = 8;
 
 
+
 };
 
 class Character : public Entity{
 
 public:
     //SDL_Rect characterRect;
-    Character();
-    const char * image = "Character.bmp";
-
+    Character(int x, int y);
+    const char * characterStandingRight = "Img/CharacterStandingRight.bmp";
+    const char * characterStandingLeft = "Img/CharacterStandingLeft.bmp";
 
 
 private:
@@ -84,14 +99,12 @@ private:
 
 };
 
-
 class Spider : public Entity {
 
 
 public:
-    Spider(string name, int health, int attack, int defence, int money);
+    Spider(int x, int y);
 
-    ~Spider();
 
 private:
 

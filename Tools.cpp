@@ -3,15 +3,17 @@
 //
 
 #include "Tools.h"
+#include "Screen.h"
 
-void Tools::quit() { //quits the game
-
+//quits the game
+void Tools::quit() {
     isRunning = false;
 
 
 }
 
-bool Tools::checkIfRunning() { // checks if the game is still running.
+// checks if the game is still running.
+bool Tools::checkIfRunning() {
 
     if (isRunning == true) {
 
@@ -24,7 +26,8 @@ bool Tools::checkIfRunning() { // checks if the game is still running.
 
 }
 
-void Tools::clearConsole() { //Drops 30 lines
+//Drops 30 lines
+void Tools::clearConsole() {
 
     cout << string(30, '\n');
 

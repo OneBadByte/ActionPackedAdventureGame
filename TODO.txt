@@ -1,0 +1,7 @@
+make it so entity's can be renderered anywhere with x and y
+make the ground move with character
+detect when entity attacks something
+entity dies
+make blocks to jump on
+make blocks solid
+fix jumping so that the character doesn't move when going right or left
