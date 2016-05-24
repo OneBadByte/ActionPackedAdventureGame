@@ -1,7 +1,16 @@
-make it so entity's can be renderered anywhere with x and y
-make the ground move with character
-detect when entity attacks something
+NEEDS:
+fix moving background so that it can take a larger image
+fix jumping so that the character doesn't move when going right or left
 entity dies
 make blocks to jump on
 make blocks solid
-fix jumping so that the character doesn't move when going right or left
+detect when entity attacks something
+make the ground move with character
+error message shows if image cant be loaded
+
+WANTS:
+make health and mana bars
+make audio thread
+make audio class
+make levels class
+make start menu

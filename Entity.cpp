@@ -312,6 +312,10 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
 //End Entity class
 
 
+//-----------------------------------------------------------------------------------------------
+
+
+
 //Character class
 Character::Character(int x, int y) {
 
@@ -327,6 +331,8 @@ Character::Character(int x, int y) {
 }
 
 //End of Character class
+
+//-----------------------------------------------------------------------------------------------
 
 //Spider class
 Spider::Spider(int x, int y) {
@@ -348,6 +354,7 @@ Spider::Spider(int x, int y) {
 
 //End of Spider class
 
+//-----------------------------------------------------------------------------------------------
 
 //Vampire class
 Vampire::Vampire(string name, int health, int attack, int defence, int money) {
@@ -364,6 +371,8 @@ Vampire::Vampire(string name, int health, int attack, int defence, int money) {
 
 //end of Vampire class
 
+//-----------------------------------------------------------------------------------------------
+
 
 //Troll class
 Troll::Troll(string name, int health, int attack, int defence, int money) {
@@ -379,6 +388,9 @@ Troll::Troll(string name, int health, int attack, int defence, int money) {
 
 //end of Troll class
 
+//-----------------------------------------------------------------------------------------------
+
+
 //Skeleton class
 Skeleton::Skeleton(string name, int health, int attack, int defence, int money) {
 
@@ -393,6 +405,9 @@ Skeleton::Skeleton(string name, int health, int attack, int defence, int money) 
 
 //end of Skeleton class
 
+//-----------------------------------------------------------------------------------------------
+
+
 //Dragon class
 Dragon::Dragon(string name, int health, int attack, int defence, int money) {
 
@@ -406,3 +421,6 @@ Dragon::Dragon(string name, int health, int attack, int defence, int money) {
 
 
 //end of Dragon class
+
+
+//-----------------------------------------------------------------------------------------------

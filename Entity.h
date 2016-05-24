@@ -90,6 +90,8 @@ class Character : public Entity{
 public:
     //SDL_Rect characterRect;
     Character(int x, int y);
+    SDL_Rect healthBar;
+    SDL_Rect manaBar;
     const char * characterStandingRight = "Img/CharacterStandingRight.bmp";
     const char * characterStandingLeft = "Img/CharacterStandingLeft.bmp";
 
