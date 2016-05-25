@@ -93,6 +93,13 @@ int Entity::getEntityRectY(SDL_Rect rect) {
     return rect.x;
 }
 
+int Entity::getEntityPosition(SDL_Rect rect){
+
+    return rect.x, rect.y;
+
+
+}
+
 
 //setters
 
@@ -129,6 +136,14 @@ void Entity::setMoney(int m) {
     money = m;
 
 }
+
+void Entity::setEntityPosition(int x, int y) {
+
+    entityRect.x = x;
+    entityRect.y = y;
+
+}
+
 
 //checks what value health is for the entity
 bool Entity::checkIfAlive() {
@@ -317,12 +332,11 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
 
 
 //Character class
-Character::Character(int x, int y) {
+
+Character::Character() {
 
     facingRight = true;
     attackingRight = false;
-    entityRect.x = x;
-    entityRect.y = y;
     entityRect.h = 100;
     entityRect.w = 100;
 

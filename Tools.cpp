@@ -7,7 +7,9 @@
 
 //quits the game
 void Tools::quit() {
+    cout << "stopping game" << endl;
     isRunning = false;
+
 
 
 }
@@ -15,7 +17,7 @@ void Tools::quit() {
 // checks if the game is still running.
 bool Tools::checkIfRunning() {
 
-    if (isRunning == true) {
+    if (isRunning) {
 
         return true;
 

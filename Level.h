@@ -13,20 +13,21 @@
 #include "Items.h"
 
 
+
+
 class Level {
-
-
-
-
-};
-
-class Level1 : public Level{
 
 public:
 
-    Level1();
+    Level();
 
+    void createScreen();
 
+    void startMenu();
+
+    void level1();
+
+    void moveCharacter();
 };
 
 

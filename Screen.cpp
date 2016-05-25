@@ -11,6 +11,13 @@ using namespace std;
 //gives the X,Y,H,W to the ground rectangle
 Screen::Screen() {
 
+
+
+
+}
+
+void Screen::createRectangles(){
+
     groundRect.x = 0;
     groundRect.y = 900;
     groundRect.w = 1000;
@@ -63,11 +70,12 @@ void Screen::createRenderer() {
 //Destroys renderer, window, and then quits SDL and the main loop
 void Screen::quitSDL() {
 
+    Tools tools;
+    tools.quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-    Tools tools;
-    tools.quit();
+
 
 
 }
@@ -152,6 +160,23 @@ void Screen::moveScreenLeft() {
 
 void Screen::moveScreenRight() {
     backgroundShownRect.x = backgroundShownRect.x + 20;
+}
+
+void Screen::moveScreen(SDL_Rect rect){
+
+    if(rect.x >= 600 ){
+        moveScreenLeft();
+
+    }else if(rect.x == 0 && backgroundShownRect.x >= 0){
+
+
+    }else if(rect.x == 0){
+        moveScreenRight();
+
+    }
+
+
+
 }
 
 Screen::~Screen() {

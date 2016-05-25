@@ -15,9 +15,9 @@ class Thread : public Character {
 
 
 public:
-    void moveScreen();
+    Thread();
     void moveCharacter();
-    int characterThread(void *ptr);
+    static int characterThread(void *ptr);
 };
 
 

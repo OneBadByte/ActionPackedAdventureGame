@@ -33,7 +33,7 @@ public:
 
     //sets the W,H,X,Y for the ground rectangle
     Screen();
-
+    void createRectangles();
     //loads a bmp to a rectangle
     void loadAndRenderBmp(const char *imagePath);
     void loadAndRenderBmp(const char *imagePath, SDL_Rect rect);
@@ -55,6 +55,7 @@ public:
     //move the screen
     void moveScreenLeft();
     void moveScreenRight();
+    void moveScreen(SDL_Rect rect);
 
     //Destroys everything and exits the main loop
     void quitSDL();

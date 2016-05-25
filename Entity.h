@@ -50,6 +50,7 @@ public:
 
     int getEntityRectY(SDL_Rect rect);
 
+    int getEntityPosition(SDL_Rect rect);
 
     //setters
     void setName(string characterName);
@@ -61,6 +62,8 @@ public:
     void setDefence(int defencePower);
 
     void setMoney(int m);
+
+    void setEntityPosition(int x, int y);
 
 
     void characterCreation();
@@ -89,7 +92,8 @@ class Character : public Entity{
 
 public:
     //SDL_Rect characterRect;
-    Character(int x, int y);
+
+    Character();
     SDL_Rect healthBar;
     SDL_Rect manaBar;
     const char * characterStandingRight = "Img/CharacterStandingRight.bmp";
