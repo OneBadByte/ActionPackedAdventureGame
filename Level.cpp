@@ -3,7 +3,8 @@
 //
 
 #include "Level.h"
-#include "Thread.h"
+#include "Audio.h"
+
 
 Character character;
 Tools tools;
@@ -11,6 +12,7 @@ Screen screen;
 Entity entity;
 SDL_Event event;
 Spider spider(500, 800);
+
 
 Level::Level() {
 
@@ -24,7 +26,7 @@ void Level::moveCharacter() {
             if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.scancode) {
                     case SDL_SCANCODE_D:
-                        cout << "right" << character.entityRect.x << endl;
+                        //cout << "right" << character.entityRect.x << endl;
                         if (character.entityRect.x >= 600) {
                             //screen.moveScreenLeft();character.
 
@@ -37,7 +39,7 @@ void Level::moveCharacter() {
                         break;
 
                     case SDL_SCANCODE_A:
-                        cout << "Left" << character.entityRect.x << endl;
+                        //cout << "Left" << character.entityRect.x << endl;
 
                         if (character.entityRect.x == 0 && screen.backgroundShownRect.x >= 0) {
 
@@ -53,7 +55,7 @@ void Level::moveCharacter() {
                         break;
 
                     case SDL_SCANCODE_W:
-                        cout << "jump" << character.entityRect.x << endl;
+                        //cout << "jump" << character.entityRect.x << endl;
                         character.moveEntityJump(character.characterStandingRight, character.entityRect,
                                                  character.facingRight,
                                                  character.attackingRight);
@@ -61,13 +63,15 @@ void Level::moveCharacter() {
                         break;
 
                     case SDL_SCANCODE_SPACE:
-                        cout << "Attacking" << endl;
+                        //cout << "Attacking" << endl;
                         character.shadowBlast("Img/Character.bmp", character.entityRect, character.facingRight,
                                               character.attackingRight);
+
                         break;
 
                     case SDL_SCANCODE_ESCAPE:
                         cout << "Pressed escape" << endl;
+                        screen.quitSDL();
                         tools.quit();
                         break;
 
@@ -92,6 +96,7 @@ void Level::createScreen() {
     //and delays SDL to give time for the window to open
     //screen.loadAndRenderBmp("Img/Loading1.bmp");
     SDL_Delay(300);
+    screen.backgroundShownRect.w = 1200;
     screen.changeBackground("Img/Loading1.bmp");
     SDL_RenderPresent(screen.renderer);
     SDL_Delay(1000);
@@ -115,7 +120,7 @@ void Level::level1(){
 
 
     character.setEntityPosition(0, 800);
-
+    screen.backgroundShownRect.w = 5000;
     while (tools.checkIfRunning()) { //Main loop for the game
 
         //Clears the Renderer
@@ -123,7 +128,7 @@ void Level::level1(){
 
 
         //loads background image and the ground
-        screen.changeBackground("Img/Land1.bmp");
+        screen.changeBackground("Img/SkyBlueBackground.bmp");
         screen.changeGroundWithBmp("Img/BrickGround.bmp");
 
 

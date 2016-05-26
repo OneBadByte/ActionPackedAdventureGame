@@ -35,7 +35,7 @@ void Screen::createRectangles(){
 
     backgroundShownRect.x = 0;
     backgroundShownRect.y = 0;
-    backgroundShownRect.w = 1200;
+    backgroundShownRect.w = 5000;
     backgroundShownRect.h = SCREENHEIGHT;
 
 
@@ -70,11 +70,10 @@ void Screen::createRenderer() {
 //Destroys renderer, window, and then quits SDL and the main loop
 void Screen::quitSDL() {
 
-    Tools tools;
-    tools.quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+
 
 
 

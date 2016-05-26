@@ -12,5 +12,5 @@ WANTS:
 make health and mana bars
 make audio thread
 make audio class
-make levels class
 make start menu
+make FPS
