@@ -27,6 +27,7 @@ public:
     void playMusic(const char* song,int seconds);
     void stopMusic();
 
+
 };
 
 #endif //ACTIONPACKEDADVENTUREGAME_AUDIO_H

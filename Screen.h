@@ -57,6 +57,13 @@ public:
     void moveScreenRight();
     void moveScreen(SDL_Rect rect);
 
+    //move ground
+    void moveGroundLeft();
+
+    void moveGroundRight();
+
+    void moveGround(SDL_Rect rect);
+
     //Destroys everything and exits the main loop
     void quitSDL();
 

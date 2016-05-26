@@ -12,26 +12,27 @@ using namespace std;
 Screen::Screen() {
 
 
-
-
 }
 
-void Screen::createRectangles(){
+void Screen::createRectangles() {
 
     groundRect.x = 0;
     groundRect.y = 900;
-    groundRect.w = 1000;
+    groundRect.w = SCREENWIDTH;
     groundRect.h = 100;
 
+    /*
     groundShownRect.x = 0;
     groundShownRect.y = 0;
     groundShownRect.w = SCREENWIDTH;
     groundShownRect.h = 100;
 
+
     backgroundRect.x = 10;
     backgroundRect.y = 0;
     backgroundRect.w = 1000;
     backgroundRect.h = 5000;
+    */
 
     backgroundShownRect.x = 0;
     backgroundShownRect.y = 0;
@@ -73,8 +74,6 @@ void Screen::quitSDL() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-
-
 
 
 }
@@ -147,33 +146,59 @@ void Screen::changeGroundWithBmp(const char *image) {
     surface = SDL_LoadBMP(image);
     texture1 = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
-    SDL_RenderCopy(renderer, texture1, &groundShownRect, &groundRect);
+    SDL_RenderCopy(renderer, texture1, NULL, &groundRect);
     SDL_DestroyTexture(texture1);
 
 
 }
 
-void Screen::moveScreenLeft() {
-    backgroundShownRect.x = backgroundShownRect.x - 20;
+
+void Screen::moveGroundLeft() {
+    groundRect.x = groundRect.x - 10;
 }
 
-void Screen::moveScreenRight() {
-    backgroundShownRect.x = backgroundShownRect.x + 20;
+void Screen::moveGroundRight() {
+    groundRect.x = groundRect.x + 10;
 }
 
-void Screen::moveScreen(SDL_Rect rect){
+void Screen::moveGround(SDL_Rect rect) {
 
-    if(rect.x >= 600 ){
-        moveScreenLeft();
+    if (rect.x >= 600) {
+        moveGroundLeft();
 
-    }else if(rect.x == 0 && backgroundShownRect.x >= 0){
+    } else if (rect.x == 0 && groundRect.x >= 0) {
 
 
-    }else if(rect.x == 0){
-        moveScreenRight();
+    } else if (rect.x == 0) {
+        moveGroundRight();
 
     }
 
+
+}
+
+
+//Move screen functions
+void Screen::moveScreenLeft() {
+    backgroundShownRect.x = backgroundShownRect.x - 10;
+}
+
+void Screen::moveScreenRight() {
+    backgroundShownRect.x = backgroundShownRect.x + 10;
+}
+
+void Screen::moveScreen(SDL_Rect rect) {
+
+    if (rect.x >= 600) {
+        moveScreenLeft();
+
+    } else if (rect.x == 0 && backgroundShownRect.x >= 0) {
+
+
+    } else if (rect.x == 0) {
+        moveScreenRight();
+
+    }
 
 
 }

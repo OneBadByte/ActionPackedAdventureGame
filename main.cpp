@@ -45,7 +45,7 @@ int main() {
 
     thread1 = SDL_CreateThread(characterThread, "character Thread", (void *) NULL);
     level.createScreen();
-    thread2 = SDL_CreateThread(introAudioThread, "audio", (void *) NULL);
+    //thread2 = SDL_CreateThread(introAudioThread, "audio", (void *) NULL);
     level.startMenu();
     level.level1();
     cout << "past Level 1" << endl;

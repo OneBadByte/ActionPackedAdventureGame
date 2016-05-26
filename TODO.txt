@@ -5,12 +5,9 @@ entity dies
 make blocks to jump on
 make blocks solid
 detect when entity attacks something
-make the ground move with character
 error message shows if image cant be loaded
 
 WANTS:
 make health and mana bars
-make audio thread
-make audio class
 make start menu
 make FPS

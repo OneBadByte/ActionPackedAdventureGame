@@ -12,6 +12,7 @@ Screen screen;
 Entity entity;
 SDL_Event event;
 Spider spider(500, 800);
+Audio audio1;
 
 
 Level::Level() {
@@ -36,6 +37,7 @@ void Level::moveCharacter() {
                         }
 
                         screen.moveScreen(character.entityRect);
+                        screen.moveGround(character.entityRect);
                         break;
 
                     case SDL_SCANCODE_A:
@@ -52,6 +54,7 @@ void Level::moveCharacter() {
                                                      character.facingRight, character.attackingRight);
                         }
                         screen.moveScreen(character.entityRect);
+                        screen.moveGround(character.entityRect);
                         break;
 
                     case SDL_SCANCODE_W:
@@ -67,10 +70,12 @@ void Level::moveCharacter() {
                         character.shadowBlast("Img/Character.bmp", character.entityRect, character.facingRight,
                                               character.attackingRight);
 
+
                         break;
 
                     case SDL_SCANCODE_ESCAPE:
                         cout << "Pressed escape" << endl;
+                        audio1.stopMusic();
                         screen.quitSDL();
                         tools.quit();
                         break;

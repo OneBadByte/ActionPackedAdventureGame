@@ -5,6 +5,8 @@
 #include "Audio.h"
 
 
+
+
 void Audio::playMusic(const char *song, int seconds) {
     SDL_Event event;
     seconds = seconds * 1000;
@@ -25,21 +27,7 @@ void Audio::playMusic(const char *song, int seconds) {
 
     //for (int i = 0; i <= seconds; i++) {
     while(musicRunning) {
-        if (SDL_PollEvent(&event)) {
-            if (event.type == SDL_KEYDOWN) {
-                switch (event.key.keysym.scancode) {
-                    case SDL_SCANCODE_R:
-                        //cout << "right" << character.entityRect.x << endl;
-                        stopMusic();
-                        musicRunning = false;
-                        break;
 
-
-                }
-
-            }
-
-        }
     }
 
     Mix_FreeChunk(scratch);
