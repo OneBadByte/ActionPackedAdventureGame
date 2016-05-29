@@ -15,24 +15,22 @@ using namespace std;
 
 Audio audio;
 Level level;
-//uses a thread to move the character by getting the keyboard input
 
 
+//Thread functions
 
-
-
-//Threads
-
-// calls moveCharacter()
 static int characterThread(void *ptr) {
-    level.moveCharacter();
+
+    level.moveCharacter(); //uses a thread to move the character by getting the keyboard input
     return 0;
 }
 
 static int introAudioThread(void *ptr){
 
-    audio.playMusic("ghostofpredition.wav", 120);
+    //plays music for 120 seconds
+    audio.playMusic("Music/ghostofpredition.wav", 120);
 }
+
 
 
 SDL_Thread *thread1;
@@ -43,14 +41,17 @@ SDL_Thread *thread2;
 int main() {
 
 
-    thread1 = SDL_CreateThread(characterThread, "character Thread", (void *) NULL);
     level.createScreen();
-    //thread2 = SDL_CreateThread(introAudioThread, "audio", (void *) NULL);
+
+    thread2 = SDL_CreateThread(introAudioThread, "audio", (void *) NULL);
     level.startMenu();
+
+    thread1 = SDL_CreateThread(characterThread, "character Thread", (void *) NULL);
     level.level1();
     cout << "past Level 1" << endl;
 
-    // destroys character thread.
+
+    // destroys threads.
     SDL_DetachThread(thread1);
     SDL_DetachThread(thread2);
 

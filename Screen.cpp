@@ -14,6 +14,7 @@ Screen::Screen() {
 
 }
 
+//Creates the ground and background rectangles
 void Screen::createRectangles() {
 
     groundRect.x = 0;
@@ -21,23 +22,11 @@ void Screen::createRectangles() {
     groundRect.w = SCREENWIDTH;
     groundRect.h = 100;
 
-    /*
-    groundShownRect.x = 0;
-    groundShownRect.y = 0;
-    groundShownRect.w = SCREENWIDTH;
-    groundShownRect.h = 100;
 
-
-    backgroundRect.x = 10;
+    backgroundRect.x = 0;
     backgroundRect.y = 0;
-    backgroundRect.w = 1000;
-    backgroundRect.h = 5000;
-    */
-
-    backgroundShownRect.x = 0;
-    backgroundShownRect.y = 0;
-    backgroundShownRect.w = 5000;
-    backgroundShownRect.h = SCREENHEIGHT;
+    backgroundRect.w = 5000;
+    backgroundRect.h = SCREENHEIGHT;
 
 
 }
@@ -66,7 +55,7 @@ void Screen::createRenderer() {
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
-}  //Creates a renderer using the window
+}
 
 //Destroys renderer, window, and then quits SDL and the main loop
 void Screen::quitSDL() {
@@ -87,13 +76,28 @@ void Screen::changeBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 
 }
 
+//changes retangle color
+void Screen::changeRectangleColor(SDL_Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+
+    SDL_SetRenderDrawColor(renderer, r, g, b, a);
+    SDL_RenderFillRect(renderer, &rect);
+    //SDL_RenderPresent(renderer);
+
+}
+
+void Screen::loadHealthAndManaBar(SDL_Rect healthRect, SDL_Rect manaRect) {
+    changeRectangleColor(healthRect, 233, 22, 22, 1);
+    changeRectangleColor(manaRect, 0, 62, 250, 1);
+}
+
+// changes the background using an image.
 void Screen::changeBackground(const char *imagePath) {
 
     SDL_Texture *texture1 = NULL;
     surface = SDL_LoadBMP(imagePath);
     texture1 = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
-    SDL_RenderCopy(renderer, texture1, NULL, &backgroundShownRect);
+    SDL_RenderCopy(renderer, texture1, NULL, &backgroundRect);
     SDL_DestroyTexture(texture1);
 
 
@@ -123,17 +127,7 @@ void Screen::loadAndRenderBmp(const char *imagePath, SDL_Rect rect) {
 
 }
 
-void Screen::loadAndRenderBmp(const char *imagePath, SDL_Rect textureRect, SDL_Rect rect) {
 
-    SDL_Texture *texture1 = NULL;
-    surface = SDL_LoadBMP(imagePath);
-    texture1 = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_FreeSurface(surface);
-    SDL_RenderCopy(renderer, texture1, &textureRect, &rect);
-    SDL_DestroyTexture(texture1);
-
-
-}
 //
 
 
@@ -153,6 +147,7 @@ void Screen::changeGroundWithBmp(const char *image) {
 }
 
 
+//Moves the ground when the character gets to a certain point on the screen
 void Screen::moveGroundLeft() {
     groundRect.x = groundRect.x - 10;
 }
@@ -180,11 +175,11 @@ void Screen::moveGround(SDL_Rect rect) {
 
 //Move screen functions
 void Screen::moveScreenLeft() {
-    backgroundShownRect.x = backgroundShownRect.x - 10;
+    backgroundRect.x = backgroundRect.x - 10;
 }
 
 void Screen::moveScreenRight() {
-    backgroundShownRect.x = backgroundShownRect.x + 10;
+    backgroundRect.x = backgroundRect.x + 10;
 }
 
 void Screen::moveScreen(SDL_Rect rect) {
@@ -192,7 +187,7 @@ void Screen::moveScreen(SDL_Rect rect) {
     if (rect.x >= 600) {
         moveScreenLeft();
 
-    } else if (rect.x == 0 && backgroundShownRect.x >= 0) {
+    } else if (rect.x == 0 && backgroundRect.x >= 0) {
 
 
     } else if (rect.x == 0) {

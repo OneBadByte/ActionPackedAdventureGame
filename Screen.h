@@ -21,11 +21,11 @@ public:
     SDL_Surface *surface = NULL;
     //surface used in the changeGroundWithBmp()
     SDL_Rect groundRect;
-    SDL_Rect groundShownRect;
+    //SDL_Rect groundShownRect;
 
     //background rectangle that holds the screen width and height
     SDL_Rect backgroundRect;
-    SDL_Rect backgroundShownRect;
+    //SDL_Rect backgroundShownRect;
 
     //used to set the screens width and height
     const int SCREENWIDTH = 1200;
@@ -33,15 +33,24 @@ public:
 
     //sets the W,H,X,Y for the ground rectangle
     Screen();
+
     void createRectangles();
+
     //loads a bmp to a rectangle
     void loadAndRenderBmp(const char *imagePath);
+
     void loadAndRenderBmp(const char *imagePath, SDL_Rect rect);
-    void loadAndRenderBmp(const char *imagePath, SDL_Rect textureRect, SDL_Rect rect);
+    //void loadAndRenderBmp(const char *imagePath, SDL_Rect textureRect, SDL_Rect rect);
 
     //changes the background color
     void changeBackground(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+
     void changeBackground(const char *imagePath);
+
+    //changes retangle color
+    void changeRectangleColor(SDL_Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+
+    void loadHealthAndManaBar(SDL_Rect healthRect, SDL_Rect manaRect);
 
     //changes the grounds bmp
     void changeGroundWithBmp(const char *image);
@@ -54,7 +63,9 @@ public:
 
     //move the screen
     void moveScreenLeft();
+
     void moveScreenRight();
+
     void moveScreen(SDL_Rect rect);
 
     //move ground

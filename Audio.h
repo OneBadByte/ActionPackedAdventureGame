@@ -22,7 +22,8 @@ public:
     Mix_Chunk *scratch = NULL;
 
 
-    bool musicRunning = true;
+
+    bool musicRunning = true; //used for the while loop in playMusic.
 
     void playMusic(const char* song,int seconds);
     void stopMusic();

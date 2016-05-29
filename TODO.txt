@@ -11,3 +11,4 @@ WANTS:
 make health and mana bars
 make start menu
 make FPS
+fix character not loading image to turn left

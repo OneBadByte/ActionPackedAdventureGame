@@ -11,7 +11,6 @@ Tools tools;
 Screen screen;
 Entity entity;
 SDL_Event event;
-Spider spider(500, 800);
 Audio audio1;
 
 
@@ -20,6 +19,7 @@ Level::Level() {
 
 }
 
+//used in a thread to move the character
 void Level::moveCharacter() {
     //const Uint8 *state = SDL_GetKeyboardState(NULL);
     while (tools.checkIfRunning()) {
@@ -43,7 +43,7 @@ void Level::moveCharacter() {
                     case SDL_SCANCODE_A:
                         //cout << "Left" << character.entityRect.x << endl;
 
-                        if (character.entityRect.x == 0 && screen.backgroundShownRect.x >= 0) {
+                        if (character.entityRect.x == 0 && screen.backgroundRect.x >= 0) {
 
 
                         } else if (character.entityRect.x == 0) {
@@ -88,6 +88,7 @@ void Level::moveCharacter() {
     } cout << "out of While loop";
 }
 
+//creates the screen, renderer, and loads the loading screen.
 void Level::createScreen() {
 
     //Creates screen
@@ -101,7 +102,7 @@ void Level::createScreen() {
     //and delays SDL to give time for the window to open
     //screen.loadAndRenderBmp("Img/Loading1.bmp");
     SDL_Delay(300);
-    screen.backgroundShownRect.w = 1200;
+    screen.backgroundRect.w = 1200;
     screen.changeBackground("Img/Loading1.bmp");
     SDL_RenderPresent(screen.renderer);
     SDL_Delay(1000);
@@ -110,8 +111,6 @@ void Level::createScreen() {
     SDL_Delay(3000);
 
 }
-
-
 
 void Level::startMenu() {
 
@@ -125,7 +124,7 @@ void Level::level1(){
 
 
     character.setEntityPosition(0, 800);
-    screen.backgroundShownRect.w = 5000;
+    screen.backgroundRect.w = 5000;
     while (tools.checkIfRunning()) { //Main loop for the game
 
         //Clears the Renderer
@@ -136,10 +135,12 @@ void Level::level1(){
         screen.changeBackground("Img/SkyBlueBackground.bmp");
         screen.changeGroundWithBmp("Img/BrickGround.bmp");
 
+        //load Health, and Mana bars
+        screen.loadHealthAndManaBar(character.healthBar, character.manaBar);
 
         //checks to see what direction the character is facing and then loads the character image
         screen.loadAndRenderBmp(entity.checkIfCharacterIsFacingRight(character.facingRight, character.attackingRight), character.entityRect);
-        screen.loadAndRenderBmp("Img/Shadow.bmp", spider.entityRect);
+        //screen.loadAndRenderBmp("Img/Shadow.bmp", spider.entityRect);
 
         //loads characters attack rectangle
         screen.loadAndRenderBmp("Img/Shadow.bmp", character.attackRect);

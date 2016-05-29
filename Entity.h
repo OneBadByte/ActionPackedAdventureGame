@@ -8,6 +8,7 @@
 #include <SDL_rect.h>
 #include "Tools.h"
 #include "Screen.h"
+
 using namespace std;
 
 class Entity : Screen {
@@ -29,6 +30,7 @@ public:
     //prints to the console all the entitys info
     void entityInfo();
 
+    void characterCreation();
 
     //getters
 
@@ -45,13 +47,6 @@ public:
     bool checkIfAlive();
 
 
-    //Used to get entitys x,y axis info
-    int getEntityRectX(SDL_Rect rect);
-
-    int getEntityRectY(SDL_Rect rect);
-
-    int getEntityPosition(SDL_Rect rect);
-
     //setters
     void setName(string characterName);
 
@@ -66,14 +61,26 @@ public:
     void setEntityPosition(int x, int y);
 
 
-    void characterCreation();
+    //Used to get entitys x,y axis info
+    int getEntityRectX(SDL_Rect rect);
+
+    int getEntityRectY(SDL_Rect rect);
+
+    int getEntityPosition(SDL_Rect rect);
 
 
-    void moveEntityLeft(const char* image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
-    void moveEntityRight(const char* image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
-    void moveEntityJump(const char* image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
-    void shadowBlast(const char* image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
-    const char* checkIfCharacterIsFacingRight(bool facingRight, bool attackingRight);
+    //used to move entity left, right, and jump
+    void moveEntityLeft(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+
+    void moveEntityRight(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+
+    void moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+
+    //entity attacks
+    void shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+
+    //checks which way the entity is facing
+    const char *checkIfCharacterIsFacingRight(bool facingRight, bool attackingRight);
 
 
 private:
@@ -88,16 +95,18 @@ private:
 
 };
 
-class Character : public Entity{
+class Character : public Entity {
 
 public:
     //SDL_Rect characterRect;
 
     Character();
-    SDL_Rect healthBar;
-    SDL_Rect manaBar;
-    const char * characterStandingRight = "Img/CharacterStandingRight.bmp";
-    const char * characterStandingLeft = "Img/CharacterStandingLeft.bmp";
+
+    SDL_Rect healthBar; //used for the health bar
+    SDL_Rect manaBar;   //used for the mana bar
+
+    const char *characterStandingRight = "Img/CharacterStandingRight.bmp";
+    const char *characterStandingLeft = "Img/CharacterStandingLeft.bmp";
 
 
 private:
@@ -109,7 +118,7 @@ class Spider : public Entity {
 
 
 public:
-    Spider(int x, int y);
+    Spider(string name, int health, int attack, int defence, int money);
 
 
 private:
@@ -164,8 +173,6 @@ private:
 protected:
 
 };
-
-
 
 
 #endif //ACTIONPACKEDADVENTUREGAME_CHARACTER_H

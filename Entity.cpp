@@ -93,6 +93,7 @@ int Entity::getEntityRectY(SDL_Rect rect) {
     return rect.x;
 }
 
+//returns the X and Y axis of any rectangle passed in.
 int Entity::getEntityPosition(SDL_Rect rect){
 
     return rect.x, rect.y;
@@ -137,12 +138,15 @@ void Entity::setMoney(int m) {
 
 }
 
+//used to set the position of the entity class that uses it.
 void Entity::setEntityPosition(int x, int y) {
 
     entityRect.x = x;
     entityRect.y = y;
 
 }
+
+//
 
 
 //checks what value health is for the entity
@@ -158,8 +162,6 @@ bool Entity::checkIfAlive() {
     }
 
 }
-
-
 
 
 //these functions moves the entity and then renders to the screen
@@ -268,6 +270,9 @@ const char *Entity::checkIfCharacterIsFacingRight(bool facingRight, bool attacki
     }
 
 }
+
+
+
 //
 
 // attack makes the entity uses an attack and renders to the screen
@@ -330,7 +335,6 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
 //-----------------------------------------------------------------------------------------------
 
 
-
 //Character class
 
 Character::Character() {
@@ -339,6 +343,17 @@ Character::Character() {
     attackingRight = false;
     entityRect.h = 100;
     entityRect.w = 100;
+
+    healthBar.x = 5;
+    healthBar.y = 10;
+    healthBar.w = 300;
+    healthBar.h = 25;
+
+    manaBar.x = 5;
+    manaBar.y = 30;
+    manaBar.w = 300;
+    manaBar.h = 25;
+
 
 
 
@@ -349,16 +364,16 @@ Character::Character() {
 //-----------------------------------------------------------------------------------------------
 
 //Spider class
-Spider::Spider(int x, int y) {
+Spider::Spider(string name, int health, int attack, int defence, int money) {
 
-    setName("Spider");
+    setName(name);
     setHealth(100);
     setAttack(10);
     setDefence(5);
     setMoney(10);
 
-    entityRect.x = x;
-    entityRect.y = y;
+    entityRect.x = 0;
+    entityRect.y = 0;
     entityRect.h = 100;
     entityRect.w = 100;
 
@@ -379,6 +394,10 @@ Vampire::Vampire(string name, int health, int attack, int defence, int money) {
     setDefence(defence);
     setMoney(money);
 
+    entityRect.x = 0;
+    entityRect.y = 0;
+    entityRect.h = 100;
+    entityRect.w = 100;
 
 }
 
@@ -397,6 +416,10 @@ Troll::Troll(string name, int health, int attack, int defence, int money) {
     setDefence(defence);
     setMoney(money);
 
+    entityRect.x = 0;
+    entityRect.y = 0;
+    entityRect.h = 100;
+    entityRect.w = 100;
 }
 
 
@@ -414,6 +437,10 @@ Skeleton::Skeleton(string name, int health, int attack, int defence, int money) 
     setDefence(defence);
     setMoney(money);
 
+    entityRect.x = 0;
+    entityRect.y = 0;
+    entityRect.h = 100;
+    entityRect.w = 100;
 }
 
 
@@ -431,6 +458,10 @@ Dragon::Dragon(string name, int health, int attack, int defence, int money) {
     setDefence(defence);
     setMoney(money);
 
+    entityRect.x = 0;
+    entityRect.y = 0;
+    entityRect.h = 100;
+    entityRect.w = 100;
 }
 
 
