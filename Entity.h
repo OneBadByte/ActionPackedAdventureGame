@@ -45,6 +45,7 @@ public:
     int getMoney();
 
     bool checkIfAlive();
+    void killEntity(SDL_Rect &rect);
 
 
     //setters

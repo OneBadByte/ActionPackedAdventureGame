@@ -75,6 +75,13 @@ public:
 
     void moveGround(SDL_Rect rect);
 
+    //moves scene
+    void moveScene(SDL_Rect rect);
+
+    void moveSceneRight();
+
+    void moveSceneLeft();
+
     //Destroys everything and exits the main loop
     void quitSDL();
 

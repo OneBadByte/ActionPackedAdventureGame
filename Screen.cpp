@@ -149,7 +149,7 @@ void Screen::changeGroundWithBmp(const char *image) {
 
 //Moves the ground when the character gets to a certain point on the screen
 void Screen::moveGroundLeft() {
-    groundRect.x = groundRect.x - 10;
+
 }
 
 void Screen::moveGroundRight() {
@@ -197,6 +197,39 @@ void Screen::moveScreen(SDL_Rect rect) {
 
 
 }
+
+
+void Screen::moveSceneLeft(){
+
+    groundRect.x = groundRect.x - 10;
+    backgroundRect.x = backgroundRect.x - 10;
+}
+
+void Screen::moveSceneRight(){
+
+    groundRect.x = groundRect.x + 10;
+    backgroundRect.x = backgroundRect.x + 10;
+
+}
+
+void Screen::moveScene(SDL_Rect rect) {
+
+    if (rect.x >= 600) {
+        moveSceneLeft();
+
+
+    } else if (rect.x == 0 && backgroundRect.x >= 0 && groundRect.x >= 0) {
+
+
+    } else if (rect.x == 0) {
+        moveSceneRight();
+
+    }
+
+
+}
+
+
 
 Screen::~Screen() {
 

@@ -8,6 +8,7 @@
 
 Character character;
 Spider spider;
+Spider spider2;
 Tools tools;
 Screen screen;
 Entity entity;
@@ -37,8 +38,9 @@ void Level::moveCharacter() {
                                                       character.facingRight, character.attackingRight);
                         }
 
-                        screen.moveScreen(character.entityRect);
-                        screen.moveGround(character.entityRect);
+                        //screen.moveScreen(character.entityRect);
+                        //screen.moveGround(character.entityRect);
+                        screen.moveScene(character.entityRect);
                         break;
 
                     case SDL_SCANCODE_A:
@@ -54,8 +56,9 @@ void Level::moveCharacter() {
                             character.moveEntityLeft("Img/CharacterStandingLeft.bmp", character.entityRect,
                                                      character.facingRight, character.attackingRight);
                         }
-                        screen.moveScreen(character.entityRect);
-                        screen.moveGround(character.entityRect);
+                        //screen.moveScreen(character.entityRect);
+                        //screen.moveGround(character.entityRect);
+                        screen.moveScene(character.entityRect);
                         break;
 
                     case SDL_SCANCODE_W:
@@ -124,6 +127,7 @@ void Level::level1() {
 
     character.setEntityPosition(0, 800);
     spider.setEntityPosition(500, 800);
+    spider2.setEntityPosition(399, 800);
     screen.backgroundRect.w = 5000;
     while (tools.checkIfRunning()) { //Main loop for the game
 
@@ -141,15 +145,23 @@ void Level::level1() {
         screen.loadAndRenderBmp(entity.checkIfCharacterIsFacingRight(character.facingRight, character.attackingRight),
                                 character.entityRect);
 
+
+
         if (!spider.checkIfAlive()) {
 
-            spider.entityRect.x = 1000;
-            spider.entityRect.y = 0;
-            spider.entityRect.h = 0;
-            spider.entityRect.w = 0;
+            spider.killEntity(spider.entityRect);
+
+
+        }else if (!spider2.checkIfAlive()) {
+
+            spider2.killEntity(spider2.entityRect);
 
         }
+
+
+
         screen.loadAndRenderBmp("Img/CharacterStandingLeft.bmp", spider.entityRect);
+        screen.loadAndRenderBmp("Img/CharacterStandingLeft.bmp", spider2.entityRect);
 
 
         //loads characters attack rectangle
@@ -163,8 +175,18 @@ void Level::level1() {
         if (entity.gotHit(character.attackRect, spider.entityRect)) {
 
             SDL_Delay(50);
-            spider.setHealth(spider.getHealth() - 10);
-            cout << spider.getHealth() << endl;
+            spider.setHealth(spider.getHealth() - character.getAttack());
+            //cout << spider.getHealth() << endl;
+
+
+
+            //character.attackRect.x = 0;
+            //character.attackRect.y = 0;
+        }else if (entity.gotHit(character.attackRect, spider2.entityRect)) {
+
+            SDL_Delay(10);
+            spider2.setHealth(spider2.getHealth() - character.getAttack());
+            //cout << spider2.getHealth() << endl;
 
 
 

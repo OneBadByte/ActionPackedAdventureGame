@@ -153,12 +153,24 @@ bool Entity::checkIfAlive() {
 
     if (health > 0) {
 
+
         return true;
 
     } else {
 
         return false;
     }
+
+}
+
+void Entity::killEntity(SDL_Rect &rect) {
+
+
+        rect.x = 1000;
+        rect.y = 900;
+        rect.w = 0;
+        rect.h = 0;
+
 
 }
 
@@ -272,10 +284,10 @@ const char *Entity::checkIfCharacterIsFacingRight(bool facingRight, bool attacki
 
 bool Entity::gotHit(SDL_Rect rect, SDL_Rect rect2){
 
-    if(getEntityRectX(rect)  >= getEntityRectX(rect2) && getEntityRectX(rect)  <= getEntityRectX(rect2) + 100){
-        cout << "Attack position is: " << "X:" << getEntityRectX(rect) << " Y: " << getEntityRectY(rect) << endl;
-        cout << "Entity position is: " << "X:" << getEntityRectX(rect2) << " Y: " << getEntityRectY(rect2) << endl;
-        cout << "hit" << endl;
+    if(getEntityRectX(rect)  >= getEntityRectX(rect2) && getEntityRectX(rect)  <= getEntityRectX(rect2) + 100 && getEntityRectY(rect2) < 900){
+        //cout << "Attack position is: " << "X:" << getEntityRectX(rect) << " Y: " << getEntityRectY(rect) << endl;
+        //cout << "Entity position is: " << "X:" << getEntityRectX(rect2) << " Y: " << getEntityRectY(rect2) << endl;
+        //cout << "hit" << endl;
         return true;
 
     }else{
@@ -360,6 +372,12 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
 //Character class
 
 Character::Character() {
+
+    setName("Bro");
+    setHealth(100);
+    setAttack(25);
+    setDefence(5);
+    setMoney(10);
 
     facingRight = true;
     attackingRight = false;

@@ -6,6 +6,7 @@ make blocks to jump on
 make blocks solid
 detect when entity attacks something
 error message shows if image cant be loaded
+move enemies with screen
 
 WANTS:
 make start menu
