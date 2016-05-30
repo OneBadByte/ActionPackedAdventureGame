@@ -7,6 +7,7 @@
 
 
 Character character;
+Spider spider;
 Tools tools;
 Screen screen;
 Entity entity;
@@ -85,7 +86,8 @@ void Level::moveCharacter() {
             }
 
         }
-    } cout << "out of While loop";
+    }
+    cout << "out of While loop";
 }
 
 //creates the screen, renderer, and loads the loading screen.
@@ -115,21 +117,18 @@ void Level::createScreen() {
 void Level::startMenu() {
 
 
-
-
-
 }
 
-void Level::level1(){
+void Level::level1() {
 
 
     character.setEntityPosition(0, 800);
+    spider.setEntityPosition(500, 800);
     screen.backgroundRect.w = 5000;
     while (tools.checkIfRunning()) { //Main loop for the game
 
         //Clears the Renderer
         SDL_RenderClear(screen.renderer);
-
 
         //loads background image and the ground
         screen.changeBackground("Img/SkyBlueBackground.bmp");
@@ -139,8 +138,19 @@ void Level::level1(){
         screen.loadHealthAndManaBar(character.healthBar, character.manaBar);
 
         //checks to see what direction the character is facing and then loads the character image
-        screen.loadAndRenderBmp(entity.checkIfCharacterIsFacingRight(character.facingRight, character.attackingRight), character.entityRect);
-        //screen.loadAndRenderBmp("Img/Shadow.bmp", spider.entityRect);
+        screen.loadAndRenderBmp(entity.checkIfCharacterIsFacingRight(character.facingRight, character.attackingRight),
+                                character.entityRect);
+
+        if (!spider.checkIfAlive()) {
+
+            spider.entityRect.x = 1000;
+            spider.entityRect.y = 0;
+            spider.entityRect.h = 0;
+            spider.entityRect.w = 0;
+
+        }
+        screen.loadAndRenderBmp("Img/CharacterStandingLeft.bmp", spider.entityRect);
+
 
         //loads characters attack rectangle
         screen.loadAndRenderBmp("Img/Shadow.bmp", character.attackRect);
@@ -150,6 +160,17 @@ void Level::level1(){
         SDL_RenderPresent(screen.renderer);
 
 
+        if (entity.gotHit(character.attackRect, spider.entityRect)) {
+
+            SDL_Delay(50);
+            spider.setHealth(spider.getHealth() - 10);
+            cout << spider.getHealth() << endl;
+
+
+
+            //character.attackRect.x = 0;
+            //character.attackRect.y = 0;
+        }
 
 
     }

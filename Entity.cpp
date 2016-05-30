@@ -81,16 +81,15 @@ int Entity::getMoney() {
 }
 
 //Gets the X axis of the entity rectangle that gets passed in.
-int Entity::getEntityRectX(SDL_Rect rect) {
-
+int Entity::getEntityRectX(SDL_Rect &rect) {
 
     return rect.x;
 }
 
 //Gets the Y axis of the entity rectangle that gets passed in.
-int Entity::getEntityRectY(SDL_Rect rect) {
+int Entity::getEntityRectY(SDL_Rect &rect) {
 
-    return rect.x;
+    return rect.y;
 }
 
 //returns the X and Y axis of any rectangle passed in.
@@ -271,6 +270,22 @@ const char *Entity::checkIfCharacterIsFacingRight(bool facingRight, bool attacki
 
 }
 
+bool Entity::gotHit(SDL_Rect rect, SDL_Rect rect2){
+
+    if(getEntityRectX(rect)  >= getEntityRectX(rect2) && getEntityRectX(rect)  <= getEntityRectX(rect2) + 100){
+        cout << "Attack position is: " << "X:" << getEntityRectX(rect) << " Y: " << getEntityRectY(rect) << endl;
+        cout << "Entity position is: " << "X:" << getEntityRectX(rect2) << " Y: " << getEntityRectY(rect2) << endl;
+        cout << "hit" << endl;
+        return true;
+
+    }else{
+
+
+        return false;
+    }
+
+
+}
 
 
 //
@@ -286,7 +301,6 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
     attackRect.w = 0;
     attackRect.h = 100;
 
-
     if (entityFacingRight) {
         for (int i = 0; i < 15; i++) {
             attackingRight = true;
@@ -294,6 +308,7 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
             attackRect.w = attackRect.w + 10;
             SDL_RenderPresent(renderer);
             SDL_Delay(20);
+
         }
 
         for (int i = 0; i < 15; i++) {
@@ -327,6 +342,13 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
         }
 
     }
+
+    attackRect.x = 0;
+    attackRect.y = 0;
+    attackRect.w = 0;
+    attackRect.h = 0;
+
+
 }
 
 //End Entity class
@@ -350,7 +372,7 @@ Character::Character() {
     healthBar.h = 25;
 
     manaBar.x = 5;
-    manaBar.y = 30;
+    manaBar.y = 40;
     manaBar.w = 300;
     manaBar.h = 25;
 
@@ -364,9 +386,9 @@ Character::Character() {
 //-----------------------------------------------------------------------------------------------
 
 //Spider class
-Spider::Spider(string name, int health, int attack, int defence, int money) {
+Spider::Spider() {
 
-    setName(name);
+    setName("spider");
     setHealth(100);
     setAttack(10);
     setDefence(5);
@@ -376,6 +398,8 @@ Spider::Spider(string name, int health, int attack, int defence, int money) {
     entityRect.y = 0;
     entityRect.h = 100;
     entityRect.w = 100;
+
+
 
 
 }
@@ -469,3 +493,5 @@ Dragon::Dragon(string name, int health, int attack, int defence, int money) {
 
 
 //-----------------------------------------------------------------------------------------------
+
+

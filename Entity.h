@@ -62,9 +62,9 @@ public:
 
 
     //Used to get entitys x,y axis info
-    int getEntityRectX(SDL_Rect rect);
+    int getEntityRectX(SDL_Rect &rect);
 
-    int getEntityRectY(SDL_Rect rect);
+    int getEntityRectY(SDL_Rect &rect);
 
     int getEntityPosition(SDL_Rect rect);
 
@@ -81,6 +81,8 @@ public:
 
     //checks which way the entity is facing
     const char *checkIfCharacterIsFacingRight(bool facingRight, bool attackingRight);
+
+    bool gotHit( SDL_Rect rect,  SDL_Rect rect2);
 
 
 private:
@@ -118,7 +120,7 @@ class Spider : public Entity {
 
 
 public:
-    Spider(string name, int health, int attack, int defence, int money);
+    Spider();
 
 
 private:

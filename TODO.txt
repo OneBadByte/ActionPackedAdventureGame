@@ -8,7 +8,8 @@ detect when entity attacks something
 error message shows if image cant be loaded
 
 WANTS:
-make health and mana bars
 make start menu
 make FPS
 fix character not loading image to turn left
+make gravity
+make health detectors

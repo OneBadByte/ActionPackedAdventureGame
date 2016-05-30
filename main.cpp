@@ -28,7 +28,7 @@ static int characterThread(void *ptr) {
 static int introAudioThread(void *ptr){
 
     //plays music for 120 seconds
-    audio.playMusic("Music/ghostofpredition.wav", 120);
+    //audio.playMusic("Music/ghostofpredition.wav", 120);
 }
 
 
