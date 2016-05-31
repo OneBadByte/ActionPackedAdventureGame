@@ -85,6 +85,8 @@ public:
 
     bool gotHit( SDL_Rect rect,  SDL_Rect rect2);
 
+    void moveEntityWithScreneRight(SDL_Rect &rect);
+
 
 private:
     // all values to the getters and setters

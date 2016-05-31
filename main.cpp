@@ -12,9 +12,9 @@ using namespace std;
 
 
 // Objects
-
 Audio audio;
 Level level;
+
 
 
 //Thread functions
@@ -31,10 +31,20 @@ static int introAudioThread(void *ptr){
     //audio.playMusic("Music/ghostofpredition.wav", 120);
 }
 
+static int enemyThread(void *ptr){
+
+    //level.moveEnemies(level.spiderPtr);
+    //level.moveEnemies(level.spider2Ptr);
+    level.moveEnemies();
+    return 0;
+
+}
+
 
 
 SDL_Thread *thread1;
 SDL_Thread *thread2;
+SDL_Thread *thread3;
 //SDL_Thread *thread1;
 //SDL_Thread *thread1;
 
@@ -47,6 +57,7 @@ int main() {
     level.startMenu();
 
     thread1 = SDL_CreateThread(characterThread, "character Thread", (void *) NULL);
+    thread3 = SDL_CreateThread(enemyThread, "enemy", (void *) NULL);
     level.level1();
     cout << "past Level 1" << endl;
 
@@ -54,6 +65,7 @@ int main() {
     // destroys threads.
     SDL_DetachThread(thread1);
     SDL_DetachThread(thread2);
+    SDL_DetachThread(thread3);
 
 
     return 0;

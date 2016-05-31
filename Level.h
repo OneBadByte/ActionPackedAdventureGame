@@ -29,6 +29,15 @@ public:
     void level1();
 
     void moveCharacter();
+
+    void moveEnemies();
+
+    void moveEnemies(SDL_Rect &rect);
+
+    void moveEnemysRight(SDL_Rect &rect);
+
+    void moveEnemysLeft(SDL_Rect &rect);
+
 };
 
 

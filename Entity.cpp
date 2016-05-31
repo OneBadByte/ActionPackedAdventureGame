@@ -93,7 +93,7 @@ int Entity::getEntityRectY(SDL_Rect &rect) {
 }
 
 //returns the X and Y axis of any rectangle passed in.
-int Entity::getEntityPosition(SDL_Rect rect){
+int Entity::getEntityPosition(SDL_Rect rect) {
 
     return rect.x, rect.y;
 
@@ -163,16 +163,18 @@ bool Entity::checkIfAlive() {
 
 }
 
+//kills entity and puts their x,y axis to 1000
 void Entity::killEntity(SDL_Rect &rect) {
 
 
-        rect.x = 1000;
-        rect.y = 900;
-        rect.w = 0;
-        rect.h = 0;
+    rect.x = 1000;
+    rect.y = 900;
+    rect.w = 0;
+    rect.h = 0;
 
 
 }
+
 
 
 //these functions moves the entity and then renders to the screen
@@ -187,8 +189,8 @@ void Entity::moveEntityLeft(const char *image, SDL_Rect &rect, bool &entityFacin
         entityFacingRight = false;
         entityShootingRight = false;
         rect.x = rect.x - runningSpeed;
-        loadAndRenderBmp(image, rect);
-        SDL_RenderPresent(renderer);
+        //loadAndRenderBmp(image, rect);
+        //SDL_RenderPresent(renderer);
 
 
     }
@@ -202,8 +204,8 @@ void Entity::moveEntityRight(const char *image, SDL_Rect &rect, bool &entityFaci
         rect.x = rect.x + runningSpeed;
         entityFacingRight = true;
         entityShootingRight = false;
-        loadAndRenderBmp(image, rect);
-        SDL_RenderPresent(renderer);
+        //loadAndRenderBmp(image, rect);
+        //SDL_RenderPresent(renderer);
 
 
     }
@@ -282,19 +284,26 @@ const char *Entity::checkIfCharacterIsFacingRight(bool facingRight, bool attacki
 
 }
 
-bool Entity::gotHit(SDL_Rect rect, SDL_Rect rect2){
+bool Entity::gotHit(SDL_Rect rect, SDL_Rect rect2) {
 
-    if(getEntityRectX(rect)  >= getEntityRectX(rect2) && getEntityRectX(rect)  <= getEntityRectX(rect2) + 100 && getEntityRectY(rect2) < 900){
+    if (getEntityRectX(rect) >= getEntityRectX(rect2) && getEntityRectX(rect) <= getEntityRectX(rect2) + 100 &&
+        getEntityRectY(rect2) < 900) {
         //cout << "Attack position is: " << "X:" << getEntityRectX(rect) << " Y: " << getEntityRectY(rect) << endl;
         //cout << "Entity position is: " << "X:" << getEntityRectX(rect2) << " Y: " << getEntityRectY(rect2) << endl;
         //cout << "hit" << endl;
         return true;
 
-    }else{
+    } else {
 
 
         return false;
     }
+
+
+}
+
+void Entity::moveEntityWithScreneRight(SDL_Rect &rect){
+    rect.x = rect.x + 10 ;
 
 
 }
@@ -374,7 +383,7 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
 Character::Character() {
 
     setName("Bro");
-    setHealth(100);
+    setHealth(300);
     setAttack(25);
     setDefence(5);
     setMoney(10);
@@ -393,8 +402,6 @@ Character::Character() {
     manaBar.y = 40;
     manaBar.w = 300;
     manaBar.h = 25;
-
-
 
 
 }
@@ -416,8 +423,6 @@ Spider::Spider() {
     entityRect.y = 0;
     entityRect.h = 100;
     entityRect.w = 100;
-
-
 
 
 }

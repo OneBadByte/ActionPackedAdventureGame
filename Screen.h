@@ -51,6 +51,7 @@ public:
     void changeRectangleColor(SDL_Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
     void loadHealthAndManaBar(SDL_Rect healthRect, SDL_Rect manaRect);
+    void loadHealthAndManaBar(SDL_Rect healthRect, SDL_Rect manaRect, int health, int mana);
 
     //changes the grounds bmp
     void changeGroundWithBmp(const char *image);

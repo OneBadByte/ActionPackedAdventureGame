@@ -85,10 +85,20 @@ void Screen::changeRectangleColor(SDL_Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint
 
 }
 
+
 void Screen::loadHealthAndManaBar(SDL_Rect healthRect, SDL_Rect manaRect) {
+
+}
+
+void Screen::loadHealthAndManaBar(SDL_Rect healthRect, SDL_Rect manaRect, int health, int mana){
+
+    healthRect.w = health;
+    manaRect.w = mana;
     changeRectangleColor(healthRect, 233, 22, 22, 1);
     changeRectangleColor(manaRect, 0, 62, 250, 1);
+
 }
+
 
 // changes the background using an image.
 void Screen::changeBackground(const char *imagePath) {
@@ -201,16 +211,20 @@ void Screen::moveScreen(SDL_Rect rect) {
 
 void Screen::moveSceneLeft(){
 
+
     groundRect.x = groundRect.x - 10;
     backgroundRect.x = backgroundRect.x - 10;
 }
 
 void Screen::moveSceneRight(){
 
+
     groundRect.x = groundRect.x + 10;
     backgroundRect.x = backgroundRect.x + 10;
 
 }
+
+
 
 void Screen::moveScene(SDL_Rect rect) {
 
