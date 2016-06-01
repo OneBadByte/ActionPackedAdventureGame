@@ -35,7 +35,7 @@ static int enemyThread(void *ptr){
 
     //level.moveEnemies(level.spiderPtr);
     //level.moveEnemies(level.spider2Ptr);
-    level.moveEnemies();
+    //level.moveEnemies();
     return 0;
 
 }

@@ -418,6 +418,8 @@ Spider::Spider() {
     setAttack(10);
     setDefence(5);
     setMoney(10);
+    pace = 0;
+    facingRight = true;
 
     entityRect.x = 0;
     entityRect.y = 0;

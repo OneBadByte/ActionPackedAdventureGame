@@ -15,6 +15,8 @@ class Entity : Screen {
 
 public:
 
+    int pace;
+
     //gives every entity a rectangle
     SDL_Rect entityRect;
 
