@@ -35,7 +35,7 @@ void Level::moveCharacter() {
 
                         } else {
                             character.moveEntityRight(character.characterStandingRight, character.entityRect,
-                                                      character.facingRight, character.attackingRight);
+                                                      character.facingRight);
                         }
 
                         //screen.moveScreen(character.entityRect);
@@ -54,7 +54,7 @@ void Level::moveCharacter() {
 
                         } else {
                             character.moveEntityLeft("Img/CharacterStandingLeft.bmp", character.entityRect,
-                                                     character.facingRight, character.attackingRight);
+                                                     character.facingRight);
                         }
                         //screen.moveScreen(character.entityRect);
                         //screen.moveGround(character.entityRect);
@@ -64,15 +64,14 @@ void Level::moveCharacter() {
                     case SDL_SCANCODE_W:
                         //cout << "jump" << character.entityRect.x << endl;
                         character.moveEntityJump(character.characterStandingRight, character.entityRect,
-                                                 character.facingRight,
-                                                 character.attackingRight);
+                                                 character.facingRight);
 
                         break;
 
                     case SDL_SCANCODE_SPACE:
                         //cout << "Attacking" << endl;
-                        character.shadowBlast("Img/Character.bmp", character.entityRect, character.facingRight,
-                                              character.attackingRight);
+                        character.mana = character.mana - 50;
+                        character.shadowBlast("Img/Shadow.bmp", character.entityRect, character.facingRight);
 
 
                         break;
@@ -93,26 +92,44 @@ void Level::moveCharacter() {
     cout << "out of While loop";
 }
 
-void Level::moveEnemiesWithScrene(SDL_Rect &enemyRect){
+void Level::enemyAttackThread() {
 
-    if (character.entityRect.x >= 600) {
-        moveEnemysLeft(enemyRect);
+    while (tools.checkIfRunning()) {
+
+        if (character.entityRect.x < spider.entityRect.x) {
+
+            spider.shadowBlast("Shadow.bmp", spider.entityRect, spider.facingRight);
+
+        }
+
+    }
 
 
-    } else if (character.entityRect.x <= 100) {
+}
 
-        moveEnemysRight(enemyRect);
+void Level::moveEnemiesWithScrene(SDL_Rect &enemyRect, bool &facingRight) {
+
+    if (character.entityRect.x >= 1000) {
+        moveEnemysLeft(enemyRect, facingRight);
+
+
+    } else if (character.entityRect.x <= -100) {
+
+        moveEnemysRight(enemyRect, facingRight);
 
     }
 
 }
-void Level::moveEnemysLeft(SDL_Rect &rect) {
-    rect.x = rect.x - 10;
+
+void Level::moveEnemysLeft(SDL_Rect &rect, bool &facingRight) {
+    facingRight = false;
+    rect.x = rect.x - 5;
 
 }
 
-void Level::moveEnemysRight(SDL_Rect &rect) {
-    rect.x = rect.x + 10;
+void Level::moveEnemysRight(SDL_Rect &rect, bool &facingRight) {
+    facingRight = true;
+    rect.x = rect.x + 5;
 }
 
 void Level::moveEnemies() {
@@ -120,13 +137,13 @@ void Level::moveEnemies() {
     int movementRange = 20;
     while (tools.checkIfRunning()) {
         for (int i = 0; i < movementRange; i++) {
-            moveEnemysLeft(spider.entityRect);
+            moveEnemysLeft(spider.entityRect, spider.facingRight);
             SDL_Delay(100);
 
         }
 
         for (int i = 0; i < movementRange; i++) {
-            moveEnemysRight(spider.entityRect);
+            moveEnemysRight(spider.entityRect, spider.facingRight);
             SDL_Delay(100);
 
         }
@@ -139,18 +156,18 @@ void Level::moveEnemies() {
 
 void Level::moveEnemies(SDL_Rect &rect, bool &moveRight, int &pace) {
 
-    int movementRange = 20;
-    if(rect.x >= character.entityRect.x){
-        moveEnemysLeft(rect);
+    if (rect.x >= character.entityRect.x) {
+        moveEnemysLeft(rect, moveRight);
 
 
-    }else if(rect.x + 100 <= character.entityRect.x) {
-    moveEnemysRight(rect);
+    } else if (rect.x <= character.entityRect.x) {
+        moveEnemysRight(rect, moveRight);
 
     }
 
 
 }
+
 
 void Level::getEnemies() {
 
@@ -210,41 +227,30 @@ void Level::level1() {
 
         //loads background image and the ground
         screen.changeBackground("Img/GrassyBackground.bmp");
-        screen.changeGroundWithBmp("Img/CrazyFloor.bmp");
+        screen.changeGroundWithBmp("Img/BlueGround.bmp");
 
         //load Health, and Mana bars
-        if (character.checkIfAlive()) {
-            screen.loadHealthAndManaBar(character.healthBar, character.manaBar, character.getHealth(),
-                                        character.getHealth());
-        } else {
-
-            character.killEntity(character.entityRect);
-            tools.quit();
-        }
+        screen.loadHealthAndManaBar(character.healthBar, character.manaBar, character.health,
+                                    character.mana);
 
 
         //checks to see what direction the character is facing and then loads the character image
-        screen.loadAndRenderBmp(entity.checkIfCharacterIsFacingRight(character.facingRight, character.attackingRight),
+        screen.loadAndRenderBmp(entity.checkIfCharacterIsFacingRight(character.facingRight),
                                 character.entityRect);
 
 
-        if (!spider.checkIfAlive()) {
+        character.checkIfAlive();
+        spider.checkIfAlive();
+        spider2.checkIfAlive();
 
-            spider.killEntity(spider.entityRect);
-
-
-        } else if (!spider2.checkIfAlive()) {
-
-            spider2.killEntity(spider2.entityRect);
-
-        }
 
         //moves the enemies
 
-        moveEnemiesWithScrene(spider.entityRect);
-        moveEnemiesWithScrene(spider2.entityRect);
+
         moveEnemies(spider.entityRect, spider.facingRight, spider.pace);
         moveEnemies(spider2.entityRect, spider2.facingRight, spider2.pace);
+        moveEnemiesWithScrene(spider.entityRect, spider.facingRight);
+        moveEnemiesWithScrene(spider2.entityRect, spider2.facingRight);
 
 
         screen.loadAndRenderBmp("Img/CharacterStandingLeft.bmp", spider.entityRect);
@@ -253,38 +259,22 @@ void Level::level1() {
 
         //loads characters attack rectangle
         screen.loadAndRenderBmp("Img/Shadow.bmp", character.attackRect);
+        screen.loadAndRenderBmp("Img/Shadow.bmp", spider.attackRect);
+        screen.loadAndRenderBmp("Img/Shadow.bmp", spider2.attackRect);
 
 
         //renders everything above
         SDL_RenderPresent(screen.renderer);
 
 
-        if (entity.gotHit(character.attackRect, spider.entityRect)) {
+        // checks if entities have been hit
+        character.gotHit(spider.entityRect);
+        character.gotHit(spider.attackRect);
+        character.gotHit(spider2.entityRect);
+        character.gotHit(spider2.attackRect);
 
-            SDL_Delay(50);
-            spider.setHealth(spider.getHealth() - character.getAttack());
-            //cout << spider.getHealth() << endl;
-
-
-
-            //character.attackRect.x = 0;
-            //character.attackRect.y = 0;
-        } else if (entity.gotHit(character.attackRect, spider2.entityRect)) {
-
-            SDL_Delay(10);
-            spider2.setHealth(spider2.getHealth() - character.getAttack());
-            //cout << spider2.getHealth() << endl;
-
-
-
-            //character.attackRect.x = 0;
-            //character.attackRect.y = 0;
-        } else if (entity.gotHit(character.entityRect, spider.entityRect)) {
-
-            character.setHealth(character.getHealth() - 10);
-            cout << "character Health: " << character.getHealth() << endl;
-
-        }
+        spider.gotHit(character.attackRect);
+        spider2.gotHit(character.attackRect);
 
 
     }

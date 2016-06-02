@@ -149,16 +149,15 @@ void Entity::setEntityPosition(int x, int y) {
 
 
 //checks what value health is for the entity
-bool Entity::checkIfAlive() {
+void Entity::checkIfAlive() {
 
-    if (health > 0) {
+    if (this->health > 0) {
 
-
-        return true;
 
     } else {
 
-        return false;
+        this->killEntity(this->entityRect);
+        this->killEntity(this->attackRect);
     }
 
 }
@@ -181,13 +180,12 @@ void Entity::killEntity(SDL_Rect &rect) {
 // checkIfCharacterIsFacingRight checks if charact is facing right and renders the image of the character facing different
 //directions
 
-void Entity::moveEntityLeft(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight) {
+void Entity::moveEntityLeft(const char *image, SDL_Rect &rect, bool &entityFacingRight) {
 
     int runningSpeed = 2;
 
     for (int i = 0; i <= 10; i++) {
         entityFacingRight = false;
-        entityShootingRight = false;
         rect.x = rect.x - runningSpeed;
         //loadAndRenderBmp(image, rect);
         //SDL_RenderPresent(renderer);
@@ -197,13 +195,12 @@ void Entity::moveEntityLeft(const char *image, SDL_Rect &rect, bool &entityFacin
 
 }
 
-void Entity::moveEntityRight(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight) {
+void Entity::moveEntityRight(const char *image, SDL_Rect &rect, bool &entityFacingRight) {
 
     int runningSpeed = 2;
     for (int i = 0; i <= 10; i++) {
         rect.x = rect.x + runningSpeed;
         entityFacingRight = true;
-        entityShootingRight = false;
         //loadAndRenderBmp(image, rect);
         //SDL_RenderPresent(renderer);
 
@@ -212,7 +209,7 @@ void Entity::moveEntityRight(const char *image, SDL_Rect &rect, bool &entityFaci
 
 }
 
-void Entity::moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight) {
+void Entity::moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacingRight) {
 
     int jumpHeight = 10;
     int jumpWidth = 5;
@@ -221,14 +218,14 @@ void Entity::moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacin
         for (int i = 0; i <= jumpWidth; i++) {
             SDL_RenderClear(renderer);
             rect.y = rect.y - jumpHeight * i;
-            moveEntityRight(image, rect, entityFacingRight, entityShootingRight);
+            moveEntityRight(image, rect, entityFacingRight);
             SDL_RenderPresent(renderer);
             SDL_Delay(jumpDelay);
         }
 
         for (int i = 0; i <= jumpWidth; i++) {
             rect.y = rect.y + jumpHeight * i;
-            moveEntityRight(image, rect, entityFacingRight, entityShootingRight);
+            moveEntityRight(image, rect, entityFacingRight);
             loadAndRenderBmp(image, rect);
             SDL_RenderPresent(renderer);
             SDL_Delay(jumpDelay);
@@ -237,7 +234,7 @@ void Entity::moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacin
     } else {
         for (int i = 0; i <= jumpWidth; i++) {
             rect.y = rect.y - jumpHeight * i;
-            moveEntityLeft(image, rect, entityFacingRight, entityShootingRight);
+            moveEntityLeft(image, rect, entityFacingRight);
             loadAndRenderBmp(image, rect);
             SDL_RenderPresent(renderer);
 
@@ -246,7 +243,7 @@ void Entity::moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacin
 
         for (int i = 0; i <= jumpWidth; i++) {
             rect.y = rect.y + jumpHeight * i;
-            moveEntityLeft(image, rect, entityFacingRight, entityShootingRight);
+            moveEntityLeft(image, rect, entityFacingRight);
             loadAndRenderBmp(image, rect);
             SDL_RenderPresent(renderer);
             SDL_Delay(jumpDelay);
@@ -255,48 +252,30 @@ void Entity::moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacin
     }
 }
 
-const char *Entity::checkIfCharacterIsFacingRight(bool facingRight, bool attackingRight) {
+const char *Entity::checkIfCharacterIsFacingRight(bool facingRight) {
 
-    bool shooting = attackingRight;
-    bool facing = facingRight;
-
-    if (facing) {
-        if (shooting) {
+    if (facingRight) {
 
             return "Img/CharacterShootingRight.bmp";
 
         } else {
 
-            return "Img/CharacterStandingRight.bmp";
-        }
-
-    } else if (!facing) {
-        if (shooting) {
-
             return "Img/CharacterShootingLeft.bmp";
-
-        } else {
-
-            return "Img/CharacterStandingLeft.bmp";
         }
 
     }
 
-}
 
-bool Entity::gotHit(SDL_Rect rect, SDL_Rect rect2) {
+void Entity::gotHit(SDL_Rect &rect2) {
 
-    if (getEntityRectX(rect) >= getEntityRectX(rect2) && getEntityRectX(rect) <= getEntityRectX(rect2) + 100 &&
+    if (getEntityRectX(this->entityRect) >= getEntityRectX(rect2) && getEntityRectX(this->entityRect) <= getEntityRectX(rect2) + 100 &&
         getEntityRectY(rect2) < 900) {
-        //cout << "Attack position is: " << "X:" << getEntityRectX(rect) << " Y: " << getEntityRectY(rect) << endl;
-        //cout << "Entity position is: " << "X:" << getEntityRectX(rect2) << " Y: " << getEntityRectY(rect2) << endl;
-        //cout << "hit" << endl;
-        return true;
+
+        this->health = this->health - 10;
 
     } else {
 
 
-        return false;
     }
 
 
@@ -312,10 +291,8 @@ void Entity::moveEntityWithScreneRight(SDL_Rect &rect){
 //
 
 // attack makes the entity uses an attack and renders to the screen
-void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight) {
+void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRight) {
 
-    //cout << getEntityRectX(rect) << endl;
-    //cout << getEntityRectY(rect) << endl;
 
     attackRect.x = rect.x + 100;
     attackRect.y = rect.y;
@@ -327,7 +304,7 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
             attackingRight = true;
             loadAndRenderBmp(image, attackRect);
             attackRect.w = attackRect.w + 10;
-            SDL_RenderPresent(renderer);
+
             SDL_Delay(20);
 
         }
@@ -336,7 +313,7 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
             loadAndRenderBmp(image, attackRect);
             attackRect.w = attackRect.w - 10;
             attackRect.x = attackRect.x + 10;
-            SDL_RenderPresent(renderer);
+
             SDL_Delay(20);
 
         }
@@ -347,7 +324,7 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
             loadAndRenderBmp(image, attackRect);
             attackRect.w = attackRect.w + 10;
             attackRect.x = attackRect.x - 10;
-            SDL_RenderPresent(renderer);
+
             SDL_Delay(20);
         }
 
@@ -355,8 +332,6 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
             loadAndRenderBmp(image, attackRect);
             attackRect.w = attackRect.w - 10;
 
-
-            SDL_RenderPresent(renderer);
             SDL_Delay(20);
 
 
@@ -364,7 +339,7 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
 
     }
 
-    attackRect.x = 0;
+    attackRect.x = 1000;
     attackRect.y = 0;
     attackRect.w = 0;
     attackRect.h = 0;
@@ -380,6 +355,19 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
 
 //Character class
 
+void Character::checkIfAlive() {
+
+    if(this->health > 0){
+
+
+    } else {
+
+        this->killEntity(this->entityRect);
+    }
+
+}
+
+
 Character::Character() {
 
     setName("Bro");
@@ -388,8 +376,10 @@ Character::Character() {
     setDefence(5);
     setMoney(10);
 
+    mana = 300;
+
     facingRight = true;
-    attackingRight = false;
+    attackingRight = true;
     entityRect.h = 100;
     entityRect.w = 100;
 
@@ -419,7 +409,12 @@ Spider::Spider() {
     setDefence(5);
     setMoney(10);
     pace = 0;
-    facingRight = true;
+
+    facingRight = false;
+    attackingRight = false;
+
+    attackRect.x = 1000;
+    attackRect.y = 0;
 
     entityRect.x = 0;
     entityRect.y = 0;
@@ -518,5 +513,6 @@ Dragon::Dragon(string name, int health, int attack, int defence, int money) {
 
 
 //-----------------------------------------------------------------------------------------------
+
 
 

@@ -85,11 +85,6 @@ void Screen::changeRectangleColor(SDL_Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint
 
 }
 
-
-void Screen::loadHealthAndManaBar(SDL_Rect healthRect, SDL_Rect manaRect) {
-
-}
-
 void Screen::loadHealthAndManaBar(SDL_Rect healthRect, SDL_Rect manaRect, int health, int mana){
 
     healthRect.w = health;

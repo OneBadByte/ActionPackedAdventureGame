@@ -1,7 +1,5 @@
 NEEDS:
-fix moving background so that it can take a larger image
 fix jumping so that the character doesn't move when going right or left
-entity dies
 make blocks to jump on
 make blocks solid
 detect when entity attacks something

@@ -46,7 +46,7 @@ public:
 
     int getMoney();
 
-    bool checkIfAlive();
+    void virtual checkIfAlive();
     void killEntity(SDL_Rect &rect);
 
 
@@ -73,31 +73,29 @@ public:
 
 
     //used to move entity left, right, and jump
-    void moveEntityLeft(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+    void moveEntityLeft(const char *image, SDL_Rect &rect, bool &entityFacingRight);
 
-    void moveEntityRight(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+    void moveEntityRight(const char *image, SDL_Rect &rect, bool &entityFacingRight);
 
-    void moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+    void moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacingRight);
 
     //entity attacks
-    void shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRight, bool &entityShootingRight);
+    void shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRight);
 
     //checks which way the entity is facing
-    const char *checkIfCharacterIsFacingRight(bool facingRight, bool attackingRight);
+    const char *checkIfCharacterIsFacingRight(bool facingRight);
 
-    bool gotHit( SDL_Rect rect,  SDL_Rect rect2);
+    void gotHit(SDL_Rect &rect2);
 
     void moveEntityWithScreneRight(SDL_Rect &rect);
 
 
-private:
-    // all values to the getters and setters
     string name;
     int money = 0;
     int health = 100;
     int attack = 10;
+    int mana;
     int defence = 8;
-
 
 
 };
@@ -106,7 +104,7 @@ class Character : public Entity {
 
 public:
     //SDL_Rect characterRect;
-
+    void checkIfAlive();
     Character();
 
     SDL_Rect healthBar; //used for the health bar

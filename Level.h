@@ -34,13 +34,14 @@ public:
     void moveCharacter();
 
     void moveEnemies();
+    void enemyAttackThread();
 
     void moveEnemies(SDL_Rect &rect, bool &moveRight, int &pace);
-    void moveEnemiesWithScrene(SDL_Rect &rect);
+    void moveEnemiesWithScrene(SDL_Rect &rect, bool &facingRight);
 
-    void moveEnemysRight(SDL_Rect &rect);
+    void moveEnemysRight(SDL_Rect &rect, bool &facingRight);
 
-    void moveEnemysLeft(SDL_Rect &rect);
+    void moveEnemysLeft(SDL_Rect &rect, bool &facingRight);
 
     void getEnemies();
 };
