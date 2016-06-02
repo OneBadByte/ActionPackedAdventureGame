@@ -192,22 +192,33 @@ void Level::createScreen() {
     screen.createRenderer();
     screen.createRectangles();
 
-    //renders the loading screen
-    //and delays SDL to give time for the window to open
-    //screen.loadAndRenderBmp("Img/Loading1.bmp");
-    SDL_Delay(300);
-    screen.backgroundRect.w = 1200;
-    screen.changeBackground("Img/Loading1.bmp");
-    SDL_RenderPresent(screen.renderer);
-    SDL_Delay(1000);
-
-    //Creates the thread and delays SDL to load the thread
-    SDL_Delay(3000);
 
 }
 
 void Level::startMenu() {
 
+    bool loopIsRunning = true;
+    while (loopIsRunning) {
+
+
+        screen.changeBackground("Img/GrassyBackground.bmp");
+        SDL_RenderPresent(screen.renderer);
+        SDL_Delay(500);
+        //renders the loading screen
+        //and delays SDL to give time for the window to open
+        //screen.loadAndRenderBmp("Img/Loading1.bmp");
+        SDL_Delay(300);
+        screen.backgroundRect.w = 1200;
+        screen.changeBackground("Img/Loading1.bmp");
+        SDL_RenderPresent(screen.renderer);
+        SDL_Delay(1000);
+
+        //Creates the thread and delays SDL to load the thread
+        SDL_Delay(3000);
+
+        loopIsRunning = false;
+
+    }
 
 }
 
