@@ -15,10 +15,10 @@
 #include "Audio.h"
 
 
-
 class Level {
 
 public:
+
 
     vector<Spider> spiderVector;
 
@@ -31,12 +31,25 @@ public:
 
     void level1();
 
+    void level2();
+
+    void level3();
+
+    void level4();
+
+    void level5();
+
+
     void moveCharacter();
 
     void moveEnemies();
+
     void enemyAttackThread();
 
+    void startScreen();
+
     void moveEnemies(SDL_Rect &rect, bool &moveRight, int &pace);
+
     void moveEnemiesWithScrene(SDL_Rect &rect, bool &facingRight);
 
     void moveEnemysRight(SDL_Rect &rect, bool &facingRight);
@@ -44,6 +57,8 @@ public:
     void moveEnemysLeft(SDL_Rect &rect, bool &facingRight);
 
     void getEnemies();
+
+    void testLevel();
 };
 
 

@@ -5,19 +5,29 @@
 #include "Tools.h"
 #include "Screen.h"
 
+
+//start the game
+void Tools::start(bool runningBool){
+
+    cout << "starting level" << endl;
+    runningBool = true;
+
+}
+
+
 //quits the game
-void Tools::quit() {
+void Tools::quit(bool runningBool) {
     cout << "stopping game" << endl;
-    isRunning = false;
+    runningBool = false;
 
 
 
 }
 
 // checks if the game is still running.
-bool Tools::checkIfRunning() {
+bool Tools::checkIfRunning(bool runningBool) {
 
-    if (isRunning) {
+    if (runningBool) {
 
         return true;
 

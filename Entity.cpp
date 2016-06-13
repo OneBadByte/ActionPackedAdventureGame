@@ -9,35 +9,6 @@
 //Entity class
 
 
-//Entity creation dialog
-void Entity::characterCreation() {
-    Tools tools;
-    string name;
-    char c = 'n';
-
-    while (c == 'n') {
-
-        cout << "what is the name of your character?: ";
-        while (tools.checkIfRunning()) {
-            cin >> name;
-            setName(name);
-            cout << "your name is: " << getName() << endl;
-            cout << " y/n: ";
-            cin >> c;
-            if (c == 'y') {
-                break;
-
-            } else {
-
-                continue;
-            }
-
-        }
-    }
-
-
-}
-
 //prints the entity info to the console the health, attack, defence, money values.
 void Entity::entityInfo() {
     cout << name << endl;

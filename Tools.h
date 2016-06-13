@@ -16,15 +16,21 @@ class Tools {
 
 public:
     //quits the main loop
-    void quit();
+    void quit(bool runningBool);
     // checks if isRunning is true
-    bool checkIfRunning();
+    bool checkIfRunning(bool runningBool);
     // drops 30 strings in the console to make space
     void clearConsole();
+    void start(bool runningBool);
 
-private:
     //Used to check if the main loop is running
-    bool isRunning = true;
+    bool gameIsRunning = true;
+    bool level1isRunning = true;
+    bool level2isRunning = true;
+    bool level3isRunning = true;
+    bool level4isRunning = true;
+    bool level5isRunning = true;
+
 
 
 };
