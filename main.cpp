@@ -6,8 +6,9 @@
 #include "Items.h"
 #include "Audio.h"
 #include <vector>
+#include "AttributeStrings.h"
 
-
+AttributeStrings strings;
 Character character;
 Spider spider;
 Spider spider2;
@@ -16,31 +17,13 @@ Tools tools;
 Screen screen;
 Entity entity;
 SDL_Event event;
-Audio audio1;
-
-
-
-
-
-
-
-
-using namespace std;
-
-
-// Objects
 Audio audio;
-
-
-
-//Thread functions
-
-
-
-
 SDL_Thread *thread1;
 SDL_Thread *thread2;
 SDL_Thread *thread3;
+
+using namespace std;
+
 //SDL_Thread *thread1;
 //SDL_Thread *thread1;
 
@@ -77,7 +60,7 @@ void moveCharacter() {
                             //screen.moveScreenRight();
 
                         } else {
-                            character.moveEntityLeft("Img/CharacterStandingLeft.bmp", character.entityRect,
+                            character.moveEntityLeft(strings.CharacterStandingLeft, character.entityRect,
                                                      character.facingRight);
                         }
                         //screen.moveScreen(character.entityRect);
@@ -96,7 +79,7 @@ void moveCharacter() {
                         //cout << "Attacking" << endl;
                         if (character.mana >= 0) {
                             character.mana = character.mana - 50;
-                            character.shadowBlast("Img/Shadow.bmp", character.entityRect, character.facingRight);
+                            character.shadowBlast(strings.Shadow, character.entityRect, character.facingRight);
                         }
 
                         break;
@@ -123,7 +106,7 @@ void enemyAttackThread() {
 
         if (character.entityRect.x < spider.entityRect.x) {
 
-            spider.shadowBlast("Shadow.bmp", spider.entityRect, spider.facingRight);
+            spider.shadowBlast(strings.Shadow, spider.entityRect, spider.facingRight);
             SDL_Delay(500);
         }
 
@@ -234,7 +217,7 @@ void createScreen() {
 void startMenu() {
 
     screen.backgroundRect.w = 1200;
-    screen.changeBackground("Img/Name.bmp");
+    screen.changeBackground(strings.Name);
     SDL_RenderPresent(screen.renderer);
     SDL_Delay(3000);
 
@@ -260,8 +243,8 @@ void level1() {
 
 
         //loads background image and the ground
-        screen.changeBackground("Img/GrassyBackground.bmp");
-        screen.changeGroundWithBmp("Img/BlueGround.bmp");
+        screen.changeBackground(strings.GrassyBackground);
+        screen.changeGroundWithBmp(strings.BlueGround);
 
         //load Health, and Mana bars
         screen.loadHealthAndManaBar(character.healthBar, character.manaBar, character.health,
@@ -291,16 +274,16 @@ void level1() {
         moveEnemiesWithScrene(spider3.entityRect, spider3.facingRight);
 
 
-        screen.loadAndRenderBmp("Img/CharacterStandingLeft.bmp", spider.entityRect);
-        screen.loadAndRenderBmp("Img/CharacterStandingLeft.bmp", spider2.entityRect);
-        screen.loadAndRenderBmp("Img/CharacterStandingLeft.bmp", spider3.entityRect);
+        screen.loadAndRenderBmp(strings.CharacterStandingLeft, spider.entityRect);
+        screen.loadAndRenderBmp(strings.CharacterStandingLeft, spider2.entityRect);
+        screen.loadAndRenderBmp(strings.CharacterStandingLeft, spider3.entityRect);
 
 
         //loads characters attack rectangle
-        screen.loadAndRenderBmp("Img/Shadow.bmp", character.attackRect);
-        screen.loadAndRenderBmp("Img/Shadow.bmp", spider.attackRect);
-        screen.loadAndRenderBmp("Img/Shadow.bmp", spider2.attackRect);
-        screen.loadAndRenderBmp("Img/Shadow.bmp", spider3.attackRect);
+        screen.loadAndRenderBmp(strings.Shadow, character.attackRect);
+        screen.loadAndRenderBmp(strings.Shadow, spider.attackRect);
+        screen.loadAndRenderBmp(strings.Shadow, spider2.attackRect);
+        screen.loadAndRenderBmp(strings.Shadow, spider3.attackRect);
 
 
         //renders everything above
