@@ -16,7 +16,7 @@ void Tools::start(bool runningBool){
 
 
 //quits the game
-void Tools::quit(bool runningBool) {
+void Tools::quit(bool &runningBool) {
     cout << "stopping game" << endl;
     runningBool = false;
 

@@ -223,28 +223,25 @@ void Entity::moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacin
     }
 }
 
-void Entity::moveEntityLeft() {
-
-    int runningSpeed = 10;
+void Entity::moveEntityLeft(int speed) {
 
     this->facingRight = false;
-    this->entityRect.x = this->entityRect.x - runningSpeed;
+    this->entityRect.x = this->entityRect.x - speed;
 
 
 }
 
-void Entity::moveEntityRight() {
+void Entity::moveEntityRight(int speed) {
 
-    int runningSpeed = 10;
-
-    this->entityRect.x = this->entityRect.x + runningSpeed;
+    this->entityRect.x = this->entityRect.x + speed;
     this->facingRight = true;
     //loadAndRenderBmp(image, rect);
     //SDL_RenderPresent(renderer);
 
 }
 
-void Entity::moveEntityJump() {
+void Entity::moveEntityJump(int speed) {
+
 
     int jumpHeight = 10;
     int jumpWidth = 5;
@@ -253,14 +250,14 @@ void Entity::moveEntityJump() {
         for (int i = 0; i <= jumpWidth; i++) {
             SDL_RenderClear(renderer);
             this->entityRect.y = this->entityRect.y - jumpHeight * i;
-            moveEntityRight();
+            moveEntityRight(speed);
             SDL_RenderPresent(renderer);
             SDL_Delay(jumpDelay);
         }
 
         for (int i = 0; i <= jumpWidth; i++) {
             this->entityRect.y = this->entityRect.y + jumpHeight * i;
-            moveEntityRight();
+            moveEntityRight(speed);
             //loadAndRenderBmp(image, this->entityRect);
             SDL_RenderPresent(renderer);
             SDL_Delay(jumpDelay);
@@ -269,7 +266,7 @@ void Entity::moveEntityJump() {
     } else {
         for (int i = 0; i <= jumpWidth; i++) {
             this->entityRect.y = this->entityRect.y - jumpHeight * i;
-            moveEntityLeft();
+            moveEntityLeft(speed);
             //loadAndRenderBmp(image, this->entityRect);
             SDL_RenderPresent(renderer);
 
@@ -278,7 +275,7 @@ void Entity::moveEntityJump() {
 
         for (int i = 0; i <= jumpWidth; i++) {
             this->entityRect.y = this->entityRect.y + jumpHeight * i;
-            moveEntityLeft();
+            moveEntityLeft(speed);
             //loadAndRenderBmp(image, this->entityRect);
             SDL_RenderPresent(renderer);
             SDL_Delay(jumpDelay);
@@ -290,11 +287,11 @@ void Entity::moveEntityJump() {
 void Entity::moveEnemyTowardsCharacter(SDL_Rect &characterRect) {
 
     if (this->entityRect.x >= characterRect.x) {
-        this->moveEntityLeft();
+        this->moveEntityLeft(10);
 
 
     } else if (this->entityRect.x <= characterRect.x) {
-        this->moveEntityRight();
+        this->moveEntityRight(10);
 
     }
 
@@ -379,9 +376,20 @@ void Entity::gotHit(SDL_Rect &entityRect1, SDL_Rect &attackRect2, int attackPowe
 }
 
 
-void Entity::moveEntityWithScreneRight(SDL_Rect &rect) {
-    rect.x = rect.x + 10;
 
+
+void Entity::moveEnemiesWithScreen(SDL_Rect &characterRect,SDL_Rect &screenRect) {
+
+    if (characterRect.x > 700 && screenRect.x != 5000) {
+        //moveEnemysLeft(enemyRect, facingRight);
+        this->moveEntityLeft(30);
+
+
+    } else if (characterRect.x < 10 && screenRect.x != 0 ) {
+
+        moveEntityRight(30);
+
+    }
 
 }
 

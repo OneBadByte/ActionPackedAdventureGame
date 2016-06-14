@@ -24,9 +24,6 @@ SDL_Thread *thread3;
 
 using namespace std;
 
-//SDL_Thread *thread1;
-//SDL_Thread *thread1;
-
 //used in a thread to move the character
 void moveCharacter() {
 
@@ -34,59 +31,46 @@ void moveCharacter() {
         if (event.type == SDL_KEYDOWN) {
             switch (event.key.keysym.scancode) {
                 case SDL_SCANCODE_D:
-                    //cout << "right" << character.entityRect.x << endl;
+
                     if (character.entityRect.x >= 600) {
-                        //screen.moveScreenLeft();character.
 
                     } else {
-                        //character.moveEntityRight(character.characterStandingRight, character.entityRect,
-                          //                        character.facingRight);
 
-                        character.moveEntityRight();
+                        character.moveEntityRight(10);
                     }
 
-                    //screen.moveScreen(character.entityRect);
-                    //screen.moveGround(character.entityRect);
                     screen.moveScene(character.entityRect);
                     break;
 
                 case SDL_SCANCODE_A:
-                    //cout << "Left" << character.entityRect.x << endl;
 
                     if (character.entityRect.x == 0 && screen.backgroundRect.x >= 0) {
 
 
                     } else if (character.entityRect.x == 0) {
-                        //screen.moveScreenRight();
+
 
                     } else {
-                        //character.moveEntityLeft(strings.CharacterStandingLeft, character.entityRect,
-                        //                         character.facingRight);
-                        character.moveEntityLeft();
+
+                        character.moveEntityLeft(10);
 
                     }
-                    //screen.moveScreen(character.entityRect);
-                    //screen.moveGround(character.entityRect);
+
                     screen.moveScene(character.entityRect);
                     break;
 
                 case SDL_SCANCODE_W:
-                    //cout << "jump" << character.entityRect.x << endl;
-                    //character.moveEntityJump(character.characterStandingRight, character.entityRect,
-                    //                         character.facingRight);
 
-                    character.moveEntityJump();
-
+                    character.moveEntityJump(10);
                     break;
 
                 case SDL_SCANCODE_SPACE:
-                    //cout << "Attacking" << endl;
+
                     if (character.mana >= 0) {
                         character.mana = character.mana - 50;
-                        //character.shadowBlast(strings.Shadow, character.entityRect, character.facingRight);
                         character.shadowBlast();
-                    }
 
+                    }
                     break;
 
                 case SDL_SCANCODE_ESCAPE:
@@ -99,7 +83,6 @@ void moveCharacter() {
                     tools.quit(tools.level4isRunning);
                     tools.quit(tools.level5isRunning);
                     tools.quit(tools.gameIsRunning);
-
                     break;
 
             }
@@ -109,139 +92,15 @@ void moveCharacter() {
     }
 }
 
-void enemyAttackThread() {
-
-    while (tools.checkIfRunning(tools.gameIsRunning)) {
-
-        if (character.entityRect.x < spider.entityRect.x) {
-
-            //spider.shadowBlast(strings.Shadow, spider.entityRect, spider.facingRight);\
-
-            SDL_Delay(500);
-        }
-
-    }
-
-
-}
-
-void enemyAttack(SDL_Rect &enemyRect, bool enemyFacingRight, SDL_Rect &enemyAttackRect) {
-
-
-        if (character.entityRect.x < enemyRect.x) {
-
-            spider.shadowBlast(strings.Shadow, enemyAttackRect, enemyFacingRight);
-        }
-
-
-}
-
-
-void startScreen(){
-
-    int SDL_CaptureMouse(SDL_bool enabled);
-
-
-
-}
-
-
-void moveEnemysLeft(SDL_Rect &rect, bool &enemyFacingRight) {
-    enemyFacingRight = false;
-    rect.x = rect.x - 5;
-
-}
-
-void moveEnemysRight(SDL_Rect &rect, bool &entityFacingRight) {
-    entityFacingRight = true;
-    character.facingRight = entityFacingRight;
-    rect.x = rect.x + 5;
-}
-
-void moveEnemies() {
-    spider.entityRect;
-    int movementRange = 20;
-    while (tools.checkIfRunning(tools.gameIsRunning)) {
-        for (int i = 0; i < movementRange; i++) {
-            moveEnemysLeft(spider.entityRect, spider.facingRight);
-            SDL_Delay(100);
-
-        }
-
-        for (int i = 0; i < movementRange; i++) {
-            moveEnemysRight(spider.entityRect, spider.facingRight);
-            SDL_Delay(100);
-
-        }
-
-
-    }
-
-
-}
-
-void moveEnemies(SDL_Rect &rect, bool &moveRight, int &pace) {
-
-    if (rect.x >= character.entityRect.x) {
-        moveEnemysLeft(rect, moveRight);
-
-
-    } else if (rect.x <= character.entityRect.x) {
-        moveEnemysRight(rect, moveRight);
-
-    }
-
-
-}
-
-void moveEnemiesWithScreen(SDL_Rect &enemyRect, bool &facingRight) {
-
-    if (character.entityRect.x >= 1000) {
-        moveEnemysLeft(enemyRect, facingRight);
-
-
-    } else if (character.entityRect.x <= -100) {
-
-        moveEnemysRight(enemyRect, facingRight);
-
-    }
-
-}
-
-
-void getEnemies() {
-
-    for (int i = 0; i < 3; i++) {
-
-        //spiderVector[i] = i;
-
-
-
-    }
-
-
-}
 
 static int characterThread(void *ptr) {
 
-    while(tools.gameIsRunning) {
+    while (tools.gameIsRunning) {
         character.checkIfAlive();
-        moveCharacter(); //uses a thread to move the character by getting the keyboard input
-
-        /*
-        character.gotHit(spider.entityRect, 1);
-        character.gotHit(spider.attackRect, 5);
-        character.gotHit(spider2.entityRect, 1);
-        character.gotHit(spider2.attackRect, 5);
-        character.gotHit(spider3.attackRect, 1);
-        character.gotHit(spider3.attackRect, 5);
-         */
-
+        moveCharacter();
         character.gotHit(spider.entityRect, spider.attackRect, 0);
         character.gotHit(spider2.entityRect, spider2.attackRect, 0);
         character.gotHit(spider3.entityRect, spider3.attackRect, 0);
-
-
 
 
     }
@@ -257,7 +116,7 @@ static int introAudioThread(void *ptr) {
 
 static int enemyThread(void *ptr) {
 
-    while(tools.checkIfRunning(tools.gameIsRunning)) {
+    while (tools.checkIfRunning(tools.gameIsRunning)) {
 
 
         spider.checkIfAlive();
@@ -268,13 +127,20 @@ static int enemyThread(void *ptr) {
         spider2.gotHit(character.attackRect, 500);
         spider3.gotHit(character.attackRect, 500);
 
+
         spider.moveEnemyTowardsCharacter(character.entityRect);
         spider2.moveEnemyTowardsCharacter(character.entityRect);
         spider3.moveEnemyTowardsCharacter(character.entityRect);
 
+        spider.moveEnemiesWithScreen(character.entityRect, screen.backgroundRect);
+        spider2.moveEnemiesWithScreen(character.entityRect, screen.backgroundRect);
+        spider3.moveEnemiesWithScreen(character.entityRect, screen.backgroundRect);
+
         spider.attackIfCharacterNear(character.entityRect);
         spider2.attackIfCharacterNear(character.entityRect);
         spider3.attackIfCharacterNear(character.entityRect);
+
+
 
 
     }
@@ -305,7 +171,6 @@ void startMenu() {
 
 
 }
-
 
 
 void level1() {
@@ -348,9 +213,9 @@ void level1() {
         //moveEnemies(spider3.entityRect, spider3.facingRight, spider3.pace);
 
 
-        moveEnemiesWithScreen(spider.entityRect, spider.facingRight);
-        moveEnemiesWithScreen(spider2.entityRect, spider2.facingRight);
-        moveEnemiesWithScreen(spider3.entityRect, spider3.facingRight);
+        //moveEnemiesWithScreen(spider.entityRect, spider.facingRight);
+        //moveEnemiesWithScreen(spider2.entityRect, spider2.facingRight);
+        //moveEnemiesWithScreen(spider3.entityRect, spider3.facingRight);
 
 
         screen.loadAndRenderBmp(strings.CharacterStandingLeft, spider.entityRect);
@@ -369,7 +234,7 @@ void level1() {
         //renders everything above
         SDL_RenderPresent(screen.renderer);
 
-        if(screen.backgroundRect.x >= 5000){
+        if (screen.backgroundRect.x >= 5000) {
 
             tools.quit(tools.level1isRunning);
 
@@ -380,55 +245,30 @@ void level1() {
         }
 
 
-
-        // checks if entities have been hit
-        /*
-        character.gotHit(spider.entityRect);
-        character.gotHit(spider.attackRect);
-        character.gotHit(spider2.entityRect);
-        character.gotHit(spider3.attackRect);
-
-        spider.gotHit(character.attackRect);
-        spider2.gotHit(character.attackRect);
-        spider3.gotHit(character.attackRect);
-
-
-
-
-        */
     }
 
 }
 
 
-void level2(){
-
-
-
-}
-
-void level3(){
-
+void level2() {
 
 
 }
 
-void level4(){
-
-
-
-}
-
-void level5(){
-
+void level3() {
 
 
 }
 
+void level4() {
 
 
+}
+
+void level5() {
 
 
+}
 
 
 int main() {

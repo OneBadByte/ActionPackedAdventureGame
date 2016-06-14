@@ -16,7 +16,7 @@ class Tools {
 
 public:
     //quits the main loop
-    void quit(bool runningBool);
+    void quit(bool &runningBool);
     // checks if isRunning is true
     bool checkIfRunning(bool runningBool);
     // drops 30 strings in the console to make space

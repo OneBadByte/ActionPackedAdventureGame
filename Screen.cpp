@@ -221,16 +221,16 @@ void Screen::moveSceneRight(){
 
 
 
-void Screen::moveScene(SDL_Rect rect) {
+void Screen::moveScene(SDL_Rect &characterRect) {
 
-    if (rect.x >= 600) {
+    if (characterRect.x >= 600) {
         moveSceneLeft();
 
 
-    } else if (rect.x == 0 && backgroundRect.x >= 0 && groundRect.x >= 0) {
+    } else if (characterRect.x == 0 && backgroundRect.x >= 0 && groundRect.x >= 0) {
 
 
-    } else if (rect.x == 0) {
+    } else if (characterRect.x == 0) {
         moveSceneRight();
 
     }

@@ -79,13 +79,15 @@ public:
 
     void moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacingRight);
 
-    void moveEntityRight();
+    void moveEntityRight(int speed);
 
-    void moveEntityLeft();
+    void moveEntityLeft(int speed);
 
-    void moveEntityJump();
+    void moveEntityJump(int speed);
 
     void moveEnemyTowardsCharacter(SDL_Rect &characterRect);
+
+    void moveEnemiesWithScreen(SDL_Rect &characterRect,SDL_Rect &screenRect);
 
 
 
@@ -102,7 +104,6 @@ public:
 
     void gotHit(SDL_Rect &entityRect1, SDL_Rect &attackRect2, int attackPower);
 
-    void moveEntityWithScreneRight(SDL_Rect &rect);
 
     void attackIfCharacterNear( SDL_Rect &characterRect);
 
