@@ -64,7 +64,7 @@ int Entity::getEntityRectY(SDL_Rect &rect) {
 }
 
 //returns the X and Y axis of any rectangle passed in.
-int Entity::getEntityPosition(SDL_Rect rect) {
+int Entity::getEntityPosition(SDL_Rect &rect) {
 
     return rect.x, rect.y;
 
@@ -127,101 +127,28 @@ void Entity::checkIfAlive() {
 
     } else {
 
-        this->killEntity(this->entityRect);
-        this->killEntity(this->attackRect);
+        this->killEntity();
+        this->killEntity();
     }
 
 }
 
 //kills entity and puts their x,y axis to 1000
-void Entity::killEntity(SDL_Rect &rect) {
+void Entity::killEntity() {
 
+    this->entityRect.x = 1000;
+    this->entityRect.y = 900;
+    this->entityRect.w = 0;
+    this->entityRect.h = 0;
 
-    rect.x = 1000;
-    rect.y = 900;
-    rect.w = 0;
-    rect.h = 0;
+    this->attackRect.x = 1000;
+    this->attackRect.y = 900;
+    this->attackRect.w = 0;
+    this->attackRect.h = 0;
 
 
 }
 
-
-
-//these functions moves the entity and then renders to the screen
-// checkIfCharacterIsFacingRight checks if charact is facing right and renders the image of the character facing different
-//directions
-
-void Entity::moveEntityLeft(const char *image, SDL_Rect &rect, bool &entityFacingRight) {
-
-    int runningSpeed = 2;
-
-    for (int i = 0; i <= 10; i++) {
-        entityFacingRight = false;
-        rect.x = rect.x - runningSpeed;
-        //loadAndRenderBmp(image, rect);
-        //SDL_RenderPresent(renderer);
-
-
-    }
-
-}
-
-void Entity::moveEntityRight(const char *image, SDL_Rect &rect, bool &entityFacingRight) {
-
-    int runningSpeed = 2;
-    for (int i = 0; i <= 10; i++) {
-        rect.x = rect.x + runningSpeed;
-        entityFacingRight = true;
-        //loadAndRenderBmp(image, rect);
-        //SDL_RenderPresent(renderer);
-
-
-    }
-
-}
-
-void Entity::moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacingRight) {
-
-    int jumpHeight = 10;
-    int jumpWidth = 5;
-    int jumpDelay = 20;
-    if (entityFacingRight) {
-        for (int i = 0; i <= jumpWidth; i++) {
-            SDL_RenderClear(renderer);
-            rect.y = rect.y - jumpHeight * i;
-            moveEntityRight(image, rect, entityFacingRight);
-            SDL_RenderPresent(renderer);
-            SDL_Delay(jumpDelay);
-        }
-
-        for (int i = 0; i <= jumpWidth; i++) {
-            rect.y = rect.y + jumpHeight * i;
-            moveEntityRight(image, rect, entityFacingRight);
-            loadAndRenderBmp(image, rect);
-            SDL_RenderPresent(renderer);
-            SDL_Delay(jumpDelay);
-        }
-
-    } else {
-        for (int i = 0; i <= jumpWidth; i++) {
-            rect.y = rect.y - jumpHeight * i;
-            moveEntityLeft(image, rect, entityFacingRight);
-            loadAndRenderBmp(image, rect);
-            SDL_RenderPresent(renderer);
-
-            SDL_Delay(jumpDelay);
-        }
-
-        for (int i = 0; i <= jumpWidth; i++) {
-            rect.y = rect.y + jumpHeight * i;
-            moveEntityLeft(image, rect, entityFacingRight);
-            loadAndRenderBmp(image, rect);
-            SDL_RenderPresent(renderer);
-            SDL_Delay(jumpDelay);
-        }
-
-    }
-}
 
 void Entity::moveEntityLeft(int speed) {
 
@@ -534,18 +461,6 @@ void Entity::shadowBlast() {
 
 //Character class
 
-void Character::checkIfAlive() {
-
-    if (this->health > 0) {
-
-
-    } else {
-
-        this->killEntity(this->entityRect);
-    }
-
-}
-
 
 Character::Character() {
 
@@ -587,7 +502,6 @@ Spider::Spider() {
     setAttack(10);
     setDefence(5);
     setMoney(10);
-    pace = 0;
 
     facingRight = false;
     attackingRight = false;

@@ -15,8 +15,6 @@ class Entity : Screen {
 
 public:
 
-    int pace;
-
     //gives every entity a rectangle
     SDL_Rect entityRect;
 
@@ -32,7 +30,6 @@ public:
     //prints to the console all the entitys info
     void entityInfo();
 
-    void characterCreation();
 
     //getters
 
@@ -47,7 +44,7 @@ public:
     int getMoney();
 
     void virtual checkIfAlive();
-    void killEntity(SDL_Rect &rect);
+    void killEntity();
 
 
     //setters
@@ -69,15 +66,15 @@ public:
 
     int getEntityRectY(SDL_Rect &rect);
 
-    int getEntityPosition(SDL_Rect rect);
+    int getEntityPosition(SDL_Rect &rect);
 
 
     //used to move entity left, right, and jump
-    void moveEntityLeft(const char *image, SDL_Rect &rect, bool &entityFacingRight);
+    //void moveEntityLeft(const char *image, SDL_Rect &rect, bool &entityFacingRight);
 
-    void moveEntityRight(const char *image, SDL_Rect &rect, bool &entityFacingRight);
+    //void moveEntityRight(const char *image, SDL_Rect &rect, bool &entityFacingRight);
 
-    void moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacingRight);
+    //void moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacingRight);
 
     void moveEntityRight(int speed);
 
@@ -122,7 +119,6 @@ class Character : public Entity {
 
 public:
     //SDL_Rect characterRect;
-    void checkIfAlive();
     Character();
 
     SDL_Rect healthBar; //used for the health bar

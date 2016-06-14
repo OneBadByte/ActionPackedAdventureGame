@@ -5,7 +5,6 @@
 #include "Screen.h"
 #include "Items.h"
 #include "Audio.h"
-#include <vector>
 #include "AttributeStrings.h"
 
 AttributeStrings strings;
@@ -75,8 +74,6 @@ void moveCharacter() {
 
                 case SDL_SCANCODE_ESCAPE:
                     cout << "Pressed escape" << endl;
-                    audio.stopMusic();
-                    screen.quitSDL();
                     tools.quit(tools.level1isRunning);
                     tools.quit(tools.level2isRunning);
                     tools.quit(tools.level3isRunning);
@@ -199,23 +196,9 @@ void level1() {
         screen.loadHealthAndManaBar(character.healthBar, character.manaBar, character.health,
                                     character.mana);
 
-
         //checks to see what direction the character is facing and then loads the character image
         screen.loadAndRenderBmp(entity.checkIfCharacterIsFacingRight(character.facingRight),
                                 character.entityRect);
-
-
-
-
-        //moves the enemies
-        //moveEnemies(spider.entityRect, spider.facingRight, spider.pace);
-        //moveEnemies(spider2.entityRect, spider2.facingRight, spider2.pace);
-        //moveEnemies(spider3.entityRect, spider3.facingRight, spider3.pace);
-
-
-        //moveEnemiesWithScreen(spider.entityRect, spider.facingRight);
-        //moveEnemiesWithScreen(spider2.entityRect, spider2.facingRight);
-        //moveEnemiesWithScreen(spider3.entityRect, spider3.facingRight);
 
 
         screen.loadAndRenderBmp(strings.CharacterStandingLeft, spider.entityRect);
@@ -289,10 +272,6 @@ int main() {
 
     //thread2 = SDL_CreateThread(introAudioThread, "audio", (void *) NULL);
 
-
-    //thread1 = SDL_CreateThread(characterThread, "character Thread", (void *) NULL);
-    //level.testLevel();
-
     while (tools.checkIfRunning(tools.gameIsRunning)) {
         int i = 0;
 
@@ -323,5 +302,7 @@ int main() {
     SDL_DetachThread(thread1);
     SDL_DetachThread(thread2);
     SDL_DetachThread(thread3);
+    audio.stopMusic();
+    screen.quitSDL();
     return 0;
 }

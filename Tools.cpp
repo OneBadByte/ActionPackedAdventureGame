@@ -38,9 +38,3 @@ bool Tools::checkIfRunning(bool runningBool) {
 
 }
 
-//Drops 30 lines
-void Tools::clearConsole() {
-
-    cout << string(30, '\n');
-
-}

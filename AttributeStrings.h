@@ -14,8 +14,7 @@ public:
     const char *CharacterStandingLeft = "Img/CharacterStandingLeft.bmp";
     const char *Shadow = "Img/Shadow.bmp";
     const char *CharacterStandingRight = "Img/CharacterStandingRight.bmp";
-    //const char * = "Img/.bmp";
-    //const char * = "Img/.bmp";
+
 
 };
 

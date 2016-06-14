@@ -20,7 +20,6 @@ public:
     // checks if isRunning is true
     bool checkIfRunning(bool runningBool);
     // drops 30 strings in the console to make space
-    void clearConsole();
     void start(bool runningBool);
 
     //Used to check if the main loop is running
