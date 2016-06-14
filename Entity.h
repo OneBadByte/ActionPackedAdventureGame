@@ -79,15 +79,32 @@ public:
 
     void moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacingRight);
 
+    void moveEntityRight();
+
+    void moveEntityLeft();
+
+    void moveEntityJump();
+
+    void moveEnemyTowardsCharacter(SDL_Rect &characterRect);
+
+
+
+
     //entity attacks
     void shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRight);
-
+    void shadowBlast();
     //checks which way the entity is facing
     const char *checkIfCharacterIsFacingRight(bool facingRight);
 
     void gotHit(SDL_Rect &rect2);
 
+    void gotHit(SDL_Rect &rect2, int attackPower);
+
+    void gotHit(SDL_Rect &entityRect1, SDL_Rect &attackRect2, int attackPower);
+
     void moveEntityWithScreneRight(SDL_Rect &rect);
+
+    void attackIfCharacterNear( SDL_Rect &characterRect);
 
 
     string name;

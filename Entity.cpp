@@ -223,23 +223,103 @@ void Entity::moveEntityJump(const char *image, SDL_Rect &rect, bool &entityFacin
     }
 }
 
-const char *Entity::checkIfCharacterIsFacingRight(bool facingRight) {
+void Entity::moveEntityLeft() {
 
-    if (facingRight) {
+    int runningSpeed = 10;
 
-            return "Img/CharacterShootingRight.bmp";
+    this->facingRight = false;
+    this->entityRect.x = this->entityRect.x - runningSpeed;
 
-        } else {
 
-            return "Img/CharacterShootingLeft.bmp";
+}
+
+void Entity::moveEntityRight() {
+
+    int runningSpeed = 10;
+
+    this->entityRect.x = this->entityRect.x + runningSpeed;
+    this->facingRight = true;
+    //loadAndRenderBmp(image, rect);
+    //SDL_RenderPresent(renderer);
+
+}
+
+void Entity::moveEntityJump() {
+
+    int jumpHeight = 10;
+    int jumpWidth = 5;
+    Uint32 jumpDelay = 20;
+    if (this->facingRight) {
+        for (int i = 0; i <= jumpWidth; i++) {
+            SDL_RenderClear(renderer);
+            this->entityRect.y = this->entityRect.y - jumpHeight * i;
+            moveEntityRight();
+            SDL_RenderPresent(renderer);
+            SDL_Delay(jumpDelay);
         }
+
+        for (int i = 0; i <= jumpWidth; i++) {
+            this->entityRect.y = this->entityRect.y + jumpHeight * i;
+            moveEntityRight();
+            //loadAndRenderBmp(image, this->entityRect);
+            SDL_RenderPresent(renderer);
+            SDL_Delay(jumpDelay);
+        }
+
+    } else {
+        for (int i = 0; i <= jumpWidth; i++) {
+            this->entityRect.y = this->entityRect.y - jumpHeight * i;
+            moveEntityLeft();
+            //loadAndRenderBmp(image, this->entityRect);
+            SDL_RenderPresent(renderer);
+
+            SDL_Delay(jumpDelay);
+        }
+
+        for (int i = 0; i <= jumpWidth; i++) {
+            this->entityRect.y = this->entityRect.y + jumpHeight * i;
+            moveEntityLeft();
+            //loadAndRenderBmp(image, this->entityRect);
+            SDL_RenderPresent(renderer);
+            SDL_Delay(jumpDelay);
+        }
+
+    }
+}
+
+void Entity::moveEnemyTowardsCharacter(SDL_Rect &characterRect) {
+
+    if (this->entityRect.x >= characterRect.x) {
+        this->moveEntityLeft();
+
+
+    } else if (this->entityRect.x <= characterRect.x) {
+        this->moveEntityRight();
 
     }
 
 
+}
+
+
+const char *Entity::checkIfCharacterIsFacingRight(bool facingRight) {
+
+    if (facingRight) {
+
+        return "Img/CharacterShootingRight.bmp";
+
+    } else {
+
+        return "Img/CharacterShootingLeft.bmp";
+    }
+
+}
+
+
 void Entity::gotHit(SDL_Rect &rect2) {
 
-    if (getEntityRectX(this->entityRect) >= getEntityRectX(rect2) && getEntityRectX(this->entityRect) <= getEntityRectX(rect2) + 100 &&
+    if (getEntityRectX(this->entityRect) >= getEntityRectX(rect2) &&
+        getEntityRectX(this->entityRect) <= getEntityRectX(rect2) + 100 &&
         getEntityRectY(rect2) < 900) {
 
         this->health = this->health - 10;
@@ -252,8 +332,55 @@ void Entity::gotHit(SDL_Rect &rect2) {
 
 }
 
-void Entity::moveEntityWithScreneRight(SDL_Rect &rect){
-    rect.x = rect.x + 10 ;
+void Entity::gotHit(SDL_Rect &rect2, int attackPower) {
+
+    if (getEntityRectX(this->entityRect) >= getEntityRectX(rect2) &&
+        getEntityRectX(this->entityRect) <= getEntityRectX(rect2) + 100 &&
+        getEntityRectY(rect2) < 900) {
+
+        this->health = this->health - attackPower;
+        SDL_Delay(20);
+
+    } else {
+
+
+    }
+
+
+}
+
+void Entity::gotHit(SDL_Rect &entityRect1, SDL_Rect &attackRect2, int attackPower) {
+
+    if (getEntityRectX(this->entityRect) >= getEntityRectX(entityRect1) &&
+        getEntityRectX(this->entityRect) <= getEntityRectX(entityRect1) + 100 &&
+        getEntityRectY(entityRect1) < 900) {
+
+        this->health = this->health - attackPower;
+        SDL_Delay(20);
+
+    } else {
+
+
+    }
+
+    if (getEntityRectX(this->entityRect) >= getEntityRectX(attackRect2) &&
+        getEntityRectX(this->entityRect) <= getEntityRectX(attackRect2) + 100 &&
+        getEntityRectY(attackRect2) < 900) {
+
+        this->health = this->health - attackPower;
+        SDL_Delay(20);
+
+    } else {
+
+
+    }
+
+
+}
+
+
+void Entity::moveEntityWithScreneRight(SDL_Rect &rect) {
+    rect.x = rect.x + 10;
 
 
 }
@@ -261,47 +388,62 @@ void Entity::moveEntityWithScreneRight(SDL_Rect &rect){
 
 //
 
+void Entity::attackIfCharacterNear(SDL_Rect &characterRect) {
+
+    if(this->health > 0) {
+        if (characterRect.x > this->entityRect.x - 150 && characterRect.x < this->entityRect.x ||
+            characterRect.x < this->entityRect.x + 150 && characterRect.x > this->entityRect.x ) {
+
+            //this->shadowBlast("Img/Shadow.bmp", this->attackRect, this->facingRight);
+            this->shadowBlast();
+        }
+    }
+
+
+}
+
+
 // attack makes the entity uses an attack and renders to the screen
 void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRight) {
 
 
-    attackRect.x = rect.x + 100;
-    attackRect.y = rect.y;
-    attackRect.w = 0;
-    attackRect.h = 100;
+    this->attackRect.x = rect.x + 100;
+    this->attackRect.y = rect.y;
+    this->attackRect.w = 0;
+    this->attackRect.h = 100;
 
     if (entityFacingRight) {
         for (int i = 0; i < 15; i++) {
-            attackingRight = true;
-            loadAndRenderBmp(image, attackRect);
-            attackRect.w = attackRect.w + 10;
+            this->attackingRight = true;
+            loadAndRenderBmp(image, this->attackRect);
+            this->attackRect.w = this->attackRect.w + 10;
 
             SDL_Delay(20);
 
         }
 
         for (int i = 0; i < 15; i++) {
-            loadAndRenderBmp(image, attackRect);
-            attackRect.w = attackRect.w - 10;
-            attackRect.x = attackRect.x + 10;
+            loadAndRenderBmp(image, this->attackRect);
+            this->attackRect.w = this->attackRect.w - 10;
+            this->attackRect.x = this->attackRect.x + 10;
 
             SDL_Delay(20);
 
         }
     } else {
-        attackingRight = false;
-        attackRect.x = rect.x - 1;
+        this->attackingRight = false;
+        this->attackRect.x = rect.x - 1;
         for (int i = 0; i < 15; i++) {
             loadAndRenderBmp(image, attackRect);
-            attackRect.w = attackRect.w + 10;
-            attackRect.x = attackRect.x - 10;
+            this->attackRect.w = this->attackRect.w + 10;
+            this->attackRect.x = this->attackRect.x - 10;
 
             SDL_Delay(20);
         }
 
         for (int i = 0; i < 15; i++) {
-            loadAndRenderBmp(image, attackRect);
-            attackRect.w = attackRect.w - 10;
+            loadAndRenderBmp(image, this->attackRect);
+            this->attackRect.w = this->attackRect.w - 10;
 
             SDL_Delay(20);
 
@@ -310,13 +452,71 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
 
     }
 
-    attackRect.x = 1000;
-    attackRect.y = 0;
-    attackRect.w = 0;
-    attackRect.h = 0;
+    this->attackRect.x = 1000;
+    this->attackRect.y = 0;
+    this->attackRect.w = 0;
+    this->attackRect.h = 0;
 
 
 }
+
+void Entity::shadowBlast() {
+
+
+    this->attackRect.x = this->entityRect.x + 100;
+    this->attackRect.y = this->entityRect.y;
+    this->attackRect.w = 0;
+    this->attackRect.h = 100;
+
+    if (this->facingRight) {
+        for (int i = 0; i < 15; i++) {
+            this->attackingRight = true;
+            loadAndRenderBmp("Img/Shadow.bmp", this->attackRect);
+            this->attackRect.w = this->attackRect.w + 10;
+
+            SDL_Delay(20);
+
+        }
+
+        for (int i = 0; i < 15; i++) {
+            loadAndRenderBmp("Img/Shadow.bmp", this->attackRect);
+            this->attackRect.w = this->attackRect.w - 10;
+            this->attackRect.x = this->attackRect.x + 10;
+
+            SDL_Delay(20);
+
+        }
+    } else {
+        this->attackingRight = false;
+        this->attackRect.x = entityRect.x - 1;
+        for (int i = 0; i < 15; i++) {
+            loadAndRenderBmp("Img/Shadow.bmp", attackRect);
+            this->attackRect.w = this->attackRect.w + 10;
+            this->attackRect.x = this->attackRect.x - 10;
+
+            SDL_Delay(20);
+        }
+
+        for (int i = 0; i < 15; i++) {
+            loadAndRenderBmp("Img/Shadow.bmp", this->attackRect);
+            this->attackRect.w = this->attackRect.w - 10;
+
+            SDL_Delay(20);
+
+
+        }
+
+    }
+
+    this->attackRect.x = 1000;
+    this->attackRect.y = 0;
+    this->attackRect.w = 0;
+    this->attackRect.h = 0;
+
+
+}
+
+
 
 //End Entity class
 
@@ -328,7 +528,7 @@ void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRi
 
 void Character::checkIfAlive() {
 
-    if(this->health > 0){
+    if (this->health > 0) {
 
 
     } else {
