@@ -1,13 +1,12 @@
-NEEDS:
+
 fix jumping so that the character doesn't move when going right or left
 make blocks to jump on
 make blocks solid
 detect when entity attacks something
 error message shows if image cant be loaded
 move enemies with screen
-
-WANTS:
 make start menu
+fix level picker so that 0 doesn't work and that only 5 levels are available
 make FPS
 fix character not loading image to turn left
 make gravity

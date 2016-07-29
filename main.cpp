@@ -21,6 +21,7 @@ SDL_Thread *thread1;
 SDL_Thread *thread2;
 SDL_Thread *thread3;
 
+
 using namespace std;
 
 //used in a thread to move the character
@@ -93,11 +94,7 @@ void moveCharacter() {
 static int characterThread(void *ptr) {
 
     while (tools.gameIsRunning) {
-        character.checkIfAlive();
         moveCharacter();
-        character.gotHit(spider.entityRect, spider.attackRect, 0);
-        character.gotHit(spider2.entityRect, spider2.attackRect, 0);
-        character.gotHit(spider3.entityRect, spider3.attackRect, 0);
 
 
     }
@@ -108,21 +105,15 @@ static int characterThread(void *ptr) {
 static int introAudioThread(void *ptr) {
 
     //plays music for 120 seconds
-    //audio.playMusic("Music/ghostofpredition.wav", 120);
+    audio.playMusic("Music/ghostofpredition.wav", 120);
+
+
 }
+
 
 static int enemyThread(void *ptr) {
 
     while (tools.checkIfRunning(tools.gameIsRunning)) {
-
-
-        spider.checkIfAlive();
-        spider2.checkIfAlive();
-        spider3.checkIfAlive();
-
-        spider.gotHit(character.attackRect, 500);
-        spider2.gotHit(character.attackRect, 500);
-        spider3.gotHit(character.attackRect, 500);
 
 
         spider.moveEnemyTowardsCharacter(character.entityRect);
@@ -138,10 +129,32 @@ static int enemyThread(void *ptr) {
         spider3.attackIfCharacterNear(character.entityRect);
 
 
+    }
+    return 0;
+
+}
+
+static int lifeThread(void *ptr) {
+    while (tools.checkIfRunning(tools.gameIsRunning)) {
+
+
+        spider.checkIfAlive();
+        spider2.checkIfAlive();
+        spider3.checkIfAlive();
+        character.checkIfAlive();
+
+        character.gotHit(spider.entityRect, spider.attackRect, 0);
+        character.gotHit(spider2.entityRect, spider2.attackRect, 0);
+        character.gotHit(spider3.entityRect, spider3.attackRect, 0);
+
+        spider.gotHit(character.attackRect, character.attack);
+        spider2.gotHit(character.attackRect, character.attack);
+        spider3.gotHit(character.attackRect, character.attack);
 
 
     }
     return 0;
+
 
 }
 
@@ -174,14 +187,16 @@ void level1() {
 
 
     character.setEntityPosition(0, 800);
-    spider.setEntityPosition(600, 800);
-    spider2.setEntityPosition(699, 800);
+    spider.setEntityPosition(2800, 800);
+    spider2.setEntityPosition(1899, 800);
     spider3.setEntityPosition(1200, 800);
     screen.backgroundRect.w = 5000;
     screen.groundRect.w = 5000;
 
     thread1 = SDL_CreateThread(characterThread, "character Thread", (void *) NULL);
     thread3 = SDL_CreateThread(enemyThread, "enemy", (void *) NULL);
+    thread2 = SDL_CreateThread(lifeThread, "Life", (void *) NULL);
+
     while (tools.checkIfRunning(tools.level1isRunning)) { //Main loop for the game
 
         //Clears the Renderer
@@ -254,8 +269,49 @@ void level5() {
 }
 
 
+void levelPicker() {
+    bool loopRunning = true;
+    char levelToStart;
+
+    while (loopRunning) {
+        cout << "What level would you like to start on?: ";
+        cin >> levelToStart;
+        switch (levelToStart) {
+
+            case '1':
+                cout << "Print one" << endl;
+                level1();
+            case '2':
+                cout << "Print two" << endl;
+                level2();
+            case '3':
+                cout << "Print three" << endl;
+                level3();
+            case '4':
+                cout << "Print four" << endl;
+                level4();
+            case '5':
+                cout << "Print five" << endl;
+                level5();
+                loopRunning = false;
+                break;
+
+            default:
+                cout << "be serious, lol noob" << endl;
+
+                continue;
+        }
+
+
+    }
+
+
+}
+
+
 int main() {
 
+    /*
     int levelChooser[6];
 
     int levelsUsing = 0;
@@ -271,9 +327,9 @@ int main() {
     createScreen();
 
     //thread2 = SDL_CreateThread(introAudioThread, "audio", (void *) NULL);
-
+    int i = 0;
     while (tools.checkIfRunning(tools.gameIsRunning)) {
-        int i = 0;
+
 
         switch (levelChooser[i]) {
 
@@ -297,7 +353,12 @@ int main() {
 
         i++;
 
-    }
+    } */
+
+
+    createScreen();
+    levelPicker();
+
     // destroys threads.
     SDL_DetachThread(thread1);
     SDL_DetachThread(thread2);

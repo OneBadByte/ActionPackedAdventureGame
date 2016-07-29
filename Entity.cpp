@@ -74,41 +74,35 @@ int Entity::getEntityPosition(SDL_Rect &rect) {
 
 //setters
 
-//sets the entity name
 void Entity::setName(string characterName) {
 
     name = characterName;
 
 }
 
-//sets the entity attack Power
 void Entity::setAttack(int attackPower) {
 
     attack = attackPower;
 }
 
-// sets the entity defence
 void Entity::setDefence(int defencePower) {
 
     defence = defencePower;
 
 }
 
-//sets the health of the entity
 void Entity::setHealth(int h) {
 
     health = h;
 
 }
 
-//sets money value
 void Entity::setMoney(int m) {
 
     money = m;
 
 }
 
-//used to set the position of the entity class that uses it.
 void Entity::setEntityPosition(int x, int y) {
 
     entityRect.x = x;
@@ -117,7 +111,6 @@ void Entity::setEntityPosition(int x, int y) {
 }
 
 //
-
 
 //checks what value health is for the entity
 void Entity::checkIfAlive() {
@@ -213,15 +206,16 @@ void Entity::moveEntityJump(int speed) {
 
 void Entity::moveEnemyTowardsCharacter(SDL_Rect &characterRect) {
 
-    if (this->entityRect.x >= characterRect.x) {
-        this->moveEntityLeft(10);
+    for (int i = 0; i < 5; i++){
+        if (this->entityRect.x >= characterRect.x) {
+            this->moveEntityLeft(2);
 
 
-    } else if (this->entityRect.x <= characterRect.x) {
-        this->moveEntityRight(10);
+        } else if (this->entityRect.x <= characterRect.x) {
+            this->moveEntityRight(2);
 
-    }
-
+        }
+}
 
 }
 
@@ -307,14 +301,14 @@ void Entity::gotHit(SDL_Rect &entityRect1, SDL_Rect &attackRect2, int attackPowe
 
 void Entity::moveEnemiesWithScreen(SDL_Rect &characterRect,SDL_Rect &screenRect) {
 
-    if (characterRect.x > 700 && screenRect.x != 5000) {
+    if (characterRect.x > 500 && screenRect.x != 5000) {
         //moveEnemysLeft(enemyRect, facingRight);
-        this->moveEntityLeft(30);
+        this->moveEntityLeft(15);
 
 
     } else if (characterRect.x < 10 && screenRect.x != 0 ) {
 
-        moveEntityRight(30);
+        moveEntityRight(11);
 
     }
 
@@ -339,61 +333,6 @@ void Entity::attackIfCharacterNear(SDL_Rect &characterRect) {
 
 
 // attack makes the entity uses an attack and renders to the screen
-void Entity::shadowBlast(const char *image, SDL_Rect &rect, bool &entityFacingRight) {
-
-
-    this->attackRect.x = rect.x + 100;
-    this->attackRect.y = rect.y;
-    this->attackRect.w = 0;
-    this->attackRect.h = 100;
-
-    if (entityFacingRight) {
-        for (int i = 0; i < 15; i++) {
-            this->attackingRight = true;
-            loadAndRenderBmp(image, this->attackRect);
-            this->attackRect.w = this->attackRect.w + 10;
-
-            SDL_Delay(20);
-
-        }
-
-        for (int i = 0; i < 15; i++) {
-            loadAndRenderBmp(image, this->attackRect);
-            this->attackRect.w = this->attackRect.w - 10;
-            this->attackRect.x = this->attackRect.x + 10;
-
-            SDL_Delay(20);
-
-        }
-    } else {
-        this->attackingRight = false;
-        this->attackRect.x = rect.x - 1;
-        for (int i = 0; i < 15; i++) {
-            loadAndRenderBmp(image, attackRect);
-            this->attackRect.w = this->attackRect.w + 10;
-            this->attackRect.x = this->attackRect.x - 10;
-
-            SDL_Delay(20);
-        }
-
-        for (int i = 0; i < 15; i++) {
-            loadAndRenderBmp(image, this->attackRect);
-            this->attackRect.w = this->attackRect.w - 10;
-
-            SDL_Delay(20);
-
-
-        }
-
-    }
-
-    this->attackRect.x = 1000;
-    this->attackRect.y = 0;
-    this->attackRect.w = 0;
-    this->attackRect.h = 0;
-
-
-}
 
 void Entity::shadowBlast() {
 

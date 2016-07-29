@@ -223,7 +223,7 @@ void Screen::moveSceneRight(){
 
 void Screen::moveScene(SDL_Rect &characterRect) {
 
-    if (characterRect.x >= 600) {
+    if (characterRect.x >= 500) {
         moveSceneLeft();
 
 
